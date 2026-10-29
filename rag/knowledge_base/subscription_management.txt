@@ -1,0 +1,135 @@
+SUBSCRIPTION MANAGEMENT AND RECURRING PAYMENTS GUIDE
+
+WHAT IS SUBSCRIPTION MANAGEMENT?
+
+Subscription management is the process of tracking,
+reviewing, and controlling recurring payments
+for products and services.
+
+Subscriptions may include streaming services,
+software applications, cloud storage, gym memberships,
+news services, and other recurring purchases.
+
+TYPES OF RECURRING PAYMENTS
+
+1. Monthly subscriptions
+2. Annual subscriptions
+3. Weekly subscriptions
+4. Membership fees
+5. Software licensing payments
+6. Automatic service renewals
+
+RECURRING TRANSACTION IDENTIFICATION
+
+Recurring transactions are payments that appear
+repeatedly over a period of time.
+
+Common indicators include:
+
+1. Similar merchant names
+2. Repeated transaction amounts
+3. Regular payment intervals
+4. Consistent transaction categories
+
+IMPORTANT DISTINCTION
+
+Not every repeated transaction is a subscription.
+
+Rent, loan repayments, insurance premiums,
+and utility payments may also recur.
+
+Transaction patterns alone cannot confirm
+whether a payment is an active subscription.
+
+MONTHLY SUBSCRIPTION COST
+
+Total Monthly Subscription Cost =
+Sum of All Monthly Subscription Payments
+
+EXAMPLE
+
+Streaming Service: Rs. 499
+Music Subscription: Rs. 119
+Cloud Storage: Rs. 130
+
+Total Monthly Subscription Cost =
+499 + 119 + 130
+
+Total Monthly Subscription Cost = Rs. 748
+
+ANNUAL SUBSCRIPTION COST
+
+Estimated Annual Subscription Cost =
+Monthly Subscription Cost * 12
+
+EXAMPLE
+
+Monthly Subscription Cost: Rs. 748
+
+Estimated Annual Cost = 748 * 12
+
+Estimated Annual Cost = Rs. 8,976
+
+This estimate assumes subscription prices
+remain unchanged throughout the year.
+
+SUBSCRIPTION OPTIMIZATION
+
+Subscription optimization involves reviewing
+recurring payments to identify unnecessary
+or underused services.
+
+BEST PRACTICES
+
+1. Maintain a list of active subscriptions.
+2. Record subscription renewal dates.
+3. Review recurring payments monthly.
+4. Identify unused or duplicate services.
+5. Compare subscription plans.
+6. Check cancellation conditions.
+7. Monitor unexpected price increases.
+8. Confirm cancellation with the provider.
+
+AI-BASED SUBSCRIPTION DETECTION
+
+Financial analytics applications can identify
+potential subscriptions using transaction patterns.
+
+Possible detection features include:
+
+- Merchant name
+- Transaction amount
+- Payment frequency
+- Transaction date
+- Spending category
+
+A system may flag a transaction as a
+potential recurring payment when similar
+payments occur at regular intervals.
+
+LIMITATIONS
+
+Recurring payment detection may produce
+false positives.
+
+Some subscriptions have variable charges.
+
+Annual subscriptions may not appear in
+short transaction histories.
+
+Missing transaction records can affect
+subscription detection accuracy.
+
+FinSight AI should describe detected subscriptions
+as potential recurring payments until verified.
+
+IMPORTANT CONSIDERATIONS
+
+Subscription cancellation policies vary
+between providers.
+
+Stopping a bank payment does not necessarily
+cancel the underlying subscription agreement.
+
+This document provides general financial
+education and not personalized financial advice.

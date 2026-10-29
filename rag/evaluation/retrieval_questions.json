@@ -1,0 +1,162 @@
+[
+  {
+    "question": "What is budgeting?",
+    "expected": "budgeting_guide.txt"
+  },
+  {
+    "question": "Why is creating a monthly budget important?",
+    "expected": "budgeting_guide.txt"
+  },
+  {
+    "question": "How can I control unnecessary spending using a budget?",
+    "expected": "budgeting_guide.txt"
+  },
+  {
+    "question": "What is an emergency fund?",
+    "expected": "emergency_fund.txt"
+  },
+  {
+    "question": "Why should I maintain emergency savings?",
+    "expected": "emergency_fund.txt"
+  },
+  {
+    "question": "How can I build an emergency fund?",
+    "expected": "emergency_fund.txt"
+  },
+  {
+    "question": "What is spending analysis?",
+    "expected": "spending_analysis.txt"
+  },
+  {
+    "question": "How can monthly spending trends help identify expenses?",
+    "expected": "spending_analysis.txt"
+  },
+  {
+    "question": "Why should I analyze my spending patterns?",
+    "expected": "spending_analysis.txt"
+  },
+  {
+    "question": "What is the debt avalanche method?",
+    "expected": "debt_management.txt"
+  },
+  {
+    "question": "How is the debt-to-income ratio calculated?",
+    "expected": "debt_management.txt"
+  },
+  {
+    "question": "What is the difference between debt snowball and debt avalanche?",
+    "expected": "debt_management.txt"
+  },
+  {
+    "question": "What is credit utilization?",
+    "expected": "credit_score.txt"
+  },
+  {
+    "question": "How is credit utilization calculated?",
+    "expected": "credit_score.txt"
+  },
+  {
+    "question": "What factors affect a credit score?",
+    "expected": "credit_score.txt"
+  },
+  {
+    "question": "What are SMART savings goals?",
+    "expected": "savings_goals.txt"
+  },
+  {
+    "question": "How do I calculate the monthly savings needed for a financial goal?",
+    "expected": "savings_goals.txt"
+  },
+  {
+    "question": "What is the savings rate?",
+    "expected": "savings_goals.txt"
+  },
+  {
+    "question": "What is net cash flow?",
+    "expected": "cash_flow_management.txt"
+  },
+  {
+    "question": "How do I calculate monthly net cash flow?",
+    "expected": "cash_flow_management.txt"
+  },
+  {
+    "question": "What is cash flow forecasting?",
+    "expected": "cash_flow_management.txt"
+  },
+  {
+    "question": "What is personal financial planning?",
+    "expected": "financial_planning.txt"
+  },
+  {
+    "question": "How is net worth calculated?",
+    "expected": "financial_planning.txt"
+  },
+  {
+    "question": "What are the main components of financial planning?",
+    "expected": "financial_planning.txt"
+  },
+  {
+    "question": "What is financial fraud?",
+    "expected": "financial_fraud_awareness.txt"
+  },
+  {
+    "question": "What is a false positive in fraud detection?",
+    "expected": "financial_fraud_awareness.txt"
+  },
+  {
+    "question": "Can an unusual bank transaction automatically be considered fraudulent?",
+    "expected": "financial_fraud_awareness.txt"
+  },
+  {
+    "question": "What are recurring subscription payments?",
+    "expected": "subscription_management.txt"
+  },
+  {
+    "question": "How can AI identify recurring subscriptions?",
+    "expected": "subscription_management.txt"
+  },
+  {
+    "question": "How do I calculate annual subscription expenses?",
+    "expected": "subscription_management.txt"
+  },
+  {
+    "question": "What is expense categorization?",
+    "expected": "expense_categorization.txt"
+  },
+  {
+    "question": "How does AI categorize bank transactions?",
+    "expected": "expense_categorization.txt"
+  },
+  {
+    "question": "How is category spending percentage calculated?",
+    "expected": "expense_categorization.txt"
+  },
+  {
+    "question": "What is investment diversification?",
+    "expected": "investment_fundamentals.txt"
+  },
+  {
+    "question": "How is compound interest calculated?",
+    "expected": "investment_fundamentals.txt"
+  },
+  {
+    "question": "What is return on investment?",
+    "expected": "investment_fundamentals.txt"
+  },
+  {
+    "question": "What is the difference between saving and investing?",
+    "expected": "investment_fundamentals.txt"
+  },
+  {
+    "question": "What is the difference between positive and negative cash flow?",
+    "expected": "cash_flow_management.txt"
+  },
+  {
+    "question": "What are the warning signs of financial fraud?",
+    "expected": "financial_fraud_awareness.txt"
+  },
+  {
+    "question": "Why can automated expense categorization be incorrect?",
+    "expected": "expense_categorization.txt"
+  }
+]

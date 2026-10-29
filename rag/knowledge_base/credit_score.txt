@@ -1,0 +1,71 @@
+CREDIT SCORE AND CREDIT HISTORY GUIDE
+
+WHAT IS A CREDIT SCORE?
+
+A credit score is a numerical indicator used to help
+assess a person's creditworthiness.
+
+Credit scores are calculated using information from
+credit reports and scoring models.
+
+Different countries, credit bureaus, and scoring models
+may use different score ranges and calculations.
+
+FACTORS THAT MAY AFFECT CREDIT SCORES
+
+1. Payment History:
+   Records of whether credit payments were made on time.
+
+2. Credit Utilization:
+   The proportion of available revolving credit currently used.
+
+3. Credit History Length:
+   The duration of an individual's recorded credit history.
+
+4. Credit Mix:
+   The different types of credit accounts held.
+
+5. Recent Credit Applications:
+   Certain credit applications may result in hard inquiries.
+
+CREDIT UTILIZATION FORMULA
+
+Credit Utilization (%) =
+(Total Revolving Credit Balance / Total Revolving Credit Limit) * 100
+
+EXAMPLE
+
+A person has a credit card limit of Rs. 100,000
+and an outstanding balance of Rs. 25,000.
+
+Credit Utilization = (25,000 / 100,000) * 100
+
+Credit Utilization = 25%
+
+WHY CREDIT HISTORY MATTERS
+
+Lenders may use credit information when evaluating
+applications for loans, mortgages, and credit cards.
+
+A credit score alone does not guarantee approval
+or determine the exact interest rate offered.
+
+WAYS TO MAINTAIN HEALTHY CREDIT HABITS
+
+1. Make required payments on time.
+2. Review credit reports for inaccuracies.
+3. Monitor outstanding balances.
+4. Avoid unnecessary credit applications.
+5. Understand borrowing terms before accepting credit.
+
+IMPORTANT CONSIDERATIONS
+
+A high credit score does not guarantee loan approval.
+
+Checking your own credit report generally does not
+affect your credit score.
+
+Credit scoring practices vary across countries
+and financial institutions.
+
+This document is for educational purposes only.

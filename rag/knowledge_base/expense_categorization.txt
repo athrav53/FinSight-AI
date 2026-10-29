@@ -1,0 +1,155 @@
+EXPENSE CATEGORIZATION AND SPENDING ANALYSIS GUIDE
+
+WHAT IS EXPENSE CATEGORIZATION?
+
+Expense categorization is the process of grouping
+financial transactions into meaningful categories.
+
+It helps individuals understand spending patterns,
+monitor budgets, and identify major expenses.
+
+COMMON EXPENSE CATEGORIES
+
+1. Housing:
+   Rent, mortgage payments, and property maintenance.
+
+2. Groceries:
+   Food and household essentials purchased from stores.
+
+3. Transportation:
+   Fuel, public transport, parking, and vehicle expenses.
+
+4. Utilities:
+   Electricity, water, gas, and internet bills.
+
+5. Healthcare:
+   Medical appointments, medicines, and healthcare expenses.
+
+6. Entertainment:
+   Movies, streaming services, and recreational activities.
+
+7. Shopping:
+   Clothing, electronics, and other retail purchases.
+
+8. Education:
+   Course fees, books, and educational subscriptions.
+
+9. Insurance:
+   Health, vehicle, home, and other insurance premiums.
+
+10. Other:
+    Transactions that cannot be confidently classified.
+
+NEEDS VS WANTS
+
+Needs are essential expenses required for daily living.
+
+Examples:
+- Basic housing
+- Essential groceries
+- Necessary transportation
+- Utilities
+
+Wants are discretionary expenses that may be reduced
+or postponed.
+
+Examples:
+- Optional entertainment
+- Luxury purchases
+- Nonessential subscriptions
+
+The classification of needs and wants depends
+on individual circumstances.
+
+EXPENSE CATEGORY PERCENTAGE
+
+Category Spending Percentage =
+(Category Expenses / Total Expenses) * 100
+
+EXAMPLE
+
+Total Monthly Expenses: Rs. 40,000
+Groceries Expenses: Rs. 8,000
+
+Groceries Percentage =
+(8,000 / 40,000) * 100
+
+Groceries Percentage = 20%
+
+TOP SPENDING CATEGORIES
+
+Top spending categories are the expense groups
+with the highest total recorded spending.
+
+They help identify where most money is being spent.
+
+MONTHLY EXPENSE COMPARISON
+
+Monthly expense comparison examines spending
+changes between different months.
+
+EXAMPLE
+
+January Groceries: Rs. 6,000
+February Groceries: Rs. 7,500
+
+Expense Change = 7,500 - 6,000
+
+Expense Change = Rs. 1,500
+
+Percentage Change =
+((7,500 - 6,000) / 6,000) * 100
+
+Percentage Change = 25%
+
+AI-BASED EXPENSE CATEGORIZATION
+
+AI and rule-based systems can classify transactions
+using merchant names and transaction descriptions.
+
+EXAMPLES
+
+Transaction: UBER TRIP
+Suggested Category: Transportation
+
+Transaction: NETFLIX
+Suggested Category: Entertainment
+
+Transaction: SUPERMARKET PURCHASE
+Suggested Category: Groceries
+
+Transaction: ELECTRICITY BILL
+Suggested Category: Utilities
+
+IMPORTANT LIMITATIONS
+
+Merchant names may be ambiguous.
+
+One merchant may sell products belonging
+to multiple categories.
+
+Transaction descriptions may be incomplete.
+
+Automated categorization can produce errors.
+
+Users should be able to review and correct
+automatically assigned categories.
+
+Transfers between personal accounts should not
+automatically be categorized as expenses.
+
+Refunds should be handled separately to avoid
+overstating total spending.
+
+IMPORTANT CONSIDERATIONS
+
+A high expense in one category does not
+automatically indicate poor financial management.
+
+Spending patterns should be interpreted
+using available transaction records.
+
+Missing transactions may affect analysis accuracy.
+
+This document provides general financial
+education and not personalized financial advice.

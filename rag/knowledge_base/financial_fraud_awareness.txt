@@ -1,0 +1,132 @@
+FINANCIAL FRAUD AWARENESS GUIDE
+
+WHAT IS FINANCIAL FRAUD?
+
+Financial fraud involves dishonest or deceptive
+activities intended to obtain money, financial
+information, or other financial benefits.
+
+Financial fraud can affect individuals,
+businesses, and financial institutions.
+
+COMMON TYPES OF FINANCIAL FRAUD
+
+1. Phishing:
+   Fraudulent emails or messages designed to
+   trick people into revealing sensitive information.
+
+2. Identity Theft:
+   Unauthorized use of another person's
+   personal information.
+
+3. Card Fraud:
+   Unauthorized use of debit or credit card details.
+
+4. Investment Scams:
+   Deceptive investment opportunities that may
+   promise unrealistic or guaranteed returns.
+
+5. Online Shopping Scams:
+   Fraudulent sellers or websites that collect
+   payments without delivering legitimate goods.
+
+6. Account Takeover:
+   Unauthorized access to a financial account.
+
+POTENTIAL WARNING SIGNS
+
+1. Transactions that the account holder
+   does not recognize.
+
+2. Multiple unexpected transactions
+   within a short period.
+
+3. Unexpected requests for passwords,
+   PINs, or one-time verification codes.
+
+4. Messages creating artificial urgency
+   to transfer money.
+
+5. Requests to send money to unfamiliar accounts.
+
+6. Investment offers promising guaranteed
+   high returns with little or no risk.
+
+TRANSACTION ANOMALY DETECTION
+
+Transaction anomaly detection identifies
+patterns that differ from normal financial activity.
+
+Examples include:
+
+- Unusually large transactions
+- Unexpected transaction frequency
+- Transactions at unusual times
+- Changes in spending patterns
+- Multiple similar transactions
+
+IMPORTANT DISTINCTION
+
+An unusual transaction is not necessarily fraudulent.
+
+Anomaly detection identifies transactions
+that may require additional investigation.
+
+A financial analytics system should not
+automatically classify every anomaly as fraud.
+
+FALSE POSITIVES
+
+A false positive occurs when legitimate
+financial activity is incorrectly flagged
+as suspicious.
+
+For example:
+
+A customer makes a large purchase while traveling.
+
+The transaction may differ from their normal
+spending behavior but still be legitimate.
+
+FRAUD PREVENTION PRACTICES
+
+1. Enable transaction notifications.
+2. Use strong and unique passwords.
+3. Enable multi-factor authentication.
+4. Avoid sharing PINs or verification codes.
+5. Review bank statements regularly.
+6. Verify payment requests independently.
+7. Contact the financial institution through
+   an official channel when suspicious
+   activity is identified.
+
+ROLE OF AI IN FRAUD AWARENESS
+
+AI systems can analyze transaction patterns
+and identify unusual financial activity.
+
+Machine learning models may use features such as:
+
+- Transaction amount
+- Transaction frequency
+- Transaction category
+- Transaction timestamp
+- Historical spending patterns
+
+AI-generated fraud alerts should be treated
+as indicators requiring verification.
+
+IMPORTANT CONSIDERATIONS
+
+Transaction datasets may be incomplete.
+
+Unusual activity does not prove fraudulent intent.
+
+Financial institutions may use additional
+information unavailable to analytics applications.
+
+FinSight AI provides financial education
+and anomaly awareness, not definitive
+fraud determinations.
+
+This document is for educational purposes only.

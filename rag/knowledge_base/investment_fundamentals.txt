@@ -1,0 +1,211 @@
+INVESTMENT FUNDAMENTALS GUIDE
+
+WHAT IS INVESTING?
+
+Investing is the process of allocating money
+to assets with the expectation of generating
+income or increasing their value over time.
+
+Investments involve risk, and returns are
+not guaranteed.
+
+SAVING VS INVESTING
+
+Saving generally involves keeping money
+in relatively accessible financial accounts.
+
+Investing involves purchasing assets that
+may increase or decrease in value.
+
+Savings are often used for short-term goals
+and emergency funds.
+
+Investments may be appropriate for longer-term
+financial goals depending on risk tolerance.
+
+COMMON TYPES OF INVESTMENTS
+
+1. Stocks:
+   Represent ownership in a company.
+
+2. Bonds:
+   Represent lending money to an issuer
+   in exchange for agreed payment terms.
+
+3. Mutual Funds:
+   Pool money from multiple investors
+   to purchase a portfolio of assets.
+
+4. Exchange-Traded Funds (ETFs):
+   Investment funds that trade on exchanges.
+
+5. Fixed Deposits:
+   Deposit products that generally offer
+   predetermined interest terms.
+
+6. Real Estate:
+   Investment in land or property.
+
+RISK AND RETURN
+
+Investment risk refers to the possibility
+of losing money or receiving returns
+different from expectations.
+
+Higher expected returns generally require
+accepting greater investment risk.
+
+However, taking greater risk does not
+guarantee higher returns.
+
+RISK TOLERANCE
+
+Risk tolerance describes an individual's
+willingness and ability to accept
+investment losses or fluctuations.
+
+Risk tolerance may depend on:
+
+1. Financial goals
+2. Investment time horizon
+3. Income stability
+4. Existing financial obligations
+5. Financial knowledge
+6. Ability to absorb losses
+
+DIVERSIFICATION
+
+Diversification means spreading investments
+across different assets or asset classes.
+
+Diversification can reduce exposure
+to risks associated with individual assets.
+
+However, diversification cannot eliminate
+all investment risks.
+
+COMPOUND INTEREST
+
+Compound interest occurs when interest
+is calculated on both the initial principal
+and previously accumulated interest.
+
+COMPOUND INTEREST FORMULA
+
+Future Value = P * (1 + r)^n
+
+Where:
+
+P = Initial principal
+r = Interest rate per compounding period
+n = Number of compounding periods
+
+EXAMPLE
+
+Initial Investment: Rs. 10,000
+Annual Interest Rate: 10%
+Investment Period: 2 years
+
+Future Value = 10,000 * (1 + 0.10)^2
+
+Future Value = Rs. 12,100
+
+Total Interest Earned = Rs. 2,100
+
+This example assumes annual compounding,
+a fixed interest rate, and no additional
+contributions, fees, or taxes.
+
+RETURN ON INVESTMENT
+
+Return on Investment (ROI) measures
+investment gain or loss relative
+to the initial investment cost.
+
+ROI Formula:
+
+ROI = ((Final Value - Initial Cost)
+       / Initial Cost) * 100
+
+EXAMPLE
+
+Initial Investment: Rs. 20,000
+Final Investment Value: Rs. 24,000
+
+ROI = ((24,000 - 20,000) / 20,000) * 100
+
+ROI = 20%
+
+This simplified calculation excludes
+transaction fees, taxes, and other costs.
+
+INVESTMENT TIME HORIZON
+
+Investment time horizon refers to the
+expected duration before invested money
+will be needed.
+
+Shorter time horizons may limit the ability
+to recover from market fluctuations.
+
+Longer time horizons may allow investors
+to tolerate some short-term volatility,
+but losses remain possible.
+
+INFLATION AND INVESTMENTS
+
+Inflation reduces the purchasing power
+of money over time.
+
+Investment returns should be considered
+alongside inflation, taxes, and fees.
+
+A positive nominal investment return
+does not always represent an increase
+in purchasing power.
+
+IMPORTANT INVESTMENT RISKS
+
+1. Market risk
+2. Credit risk
+3. Liquidity risk
+4. Inflation risk
+5. Interest rate risk
+6. Currency risk
+
+INVESTMENT BEST PRACTICES
+
+1. Understand investment products before investing.
+2. Define financial goals and time horizons.
+3. Evaluate risk tolerance.
+4. Consider diversification.
+5. Review investment fees and charges.
+6. Avoid unrealistic guaranteed-return promises.
+7. Review investments periodically.
+8. Maintain appropriate emergency savings.
+
+ROLE OF AI IN INVESTMENT ANALYSIS
+
+AI systems can analyze historical market data,
+identify patterns, and summarize information.
+
+However, historical patterns do not
+guarantee future investment performance.
+
+AI-generated predictions may be inaccurate.
+
+IMPORTANT CONSIDERATIONS
+
+Investment values can rise or fall.
+
+Past performance does not guarantee
+future results.
+
+Investment products differ in liquidity,
+risk, fees, taxation, and regulation.
+
+FinSight AI provides general financial
+education and analytics.
+
+FinSight AI does not guarantee investment
+returns or provide personalized investment advice.
