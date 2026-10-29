@@ -1,0 +1,59 @@
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python virtual environments
+.venv/
+.venv311/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Local databases and backups
+backups/
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+*.backup
+
+# Local datasets (review before publishing)
+data/
+
+# Large archives
+*.zip
+*.rar
+*.7z
+
+# Logs
+*.log
+*_log.txt
+
+# Local generated files
+installed_packages.txt
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+# Development backups
+app_backup.py
+
+# Temporary test scripts
+test_buttons.py
+test_loader.py
+
+# Generated evaluation results
+evaluation/results/
+
+# Local configuration used for testing
+config/test.json

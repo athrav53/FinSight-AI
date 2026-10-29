@@ -1,0 +1,182 @@
+{
+  "dataset_name": "FinSight AI RAG Evaluation",
+  "version": "2.0",
+  "description": "Evaluation questions for financial document retrieval, grounded answering, and abstention.",
+  "test_cases": [
+    {
+      "id": 1,
+      "question": "What is an emergency fund?",
+      "expected_source": "emergency_fund.txt",
+      "answerable": true,
+      "category": "direct_retrieval"
+    },
+    {
+      "id": 2,
+      "question": "How can I prepare a monthly budget?",
+      "expected_source": "budgeting_guide.txt",
+      "answerable": true,
+      "category": "direct_retrieval"
+    },
+    {
+      "id": 3,
+      "question": "Why should I track my spending?",
+      "expected_source": "spending_analysis.txt",
+      "answerable": true,
+      "category": "direct_retrieval"
+    },
+    {
+      "id": 4,
+      "question": "What types of expenses can an emergency fund cover?",
+      "expected_source": "emergency_fund.txt",
+      "answerable": true,
+      "category": "direct_retrieval"
+    },
+    {
+      "id": 5,
+      "question": "What steps are involved in creating a budget?",
+      "expected_source": "budgeting_guide.txt",
+      "answerable": true,
+      "category": "direct_retrieval"
+    },
+    {
+      "id": 6,
+      "question": "How does spending analysis help with financial awareness?",
+      "expected_source": "spending_analysis.txt",
+      "answerable": true,
+      "category": "reasoning"
+    },
+    {
+      "id": 7,
+      "question": "Why is it important to review a budget regularly?",
+      "expected_source": "budgeting_guide.txt",
+      "answerable": true,
+      "category": "reasoning"
+    },
+    {
+      "id": 8,
+      "question": "How can tracking expenses support budgeting?",
+      "expected_source": "spending_analysis.txt",
+      "answerable": true,
+      "category": "reasoning"
+    },
+    {
+      "id": 9,
+      "question": "What is the purpose of keeping money aside for unexpected expenses?",
+      "expected_source": "emergency_fund.txt",
+      "answerable": true,
+      "category": "paraphrased"
+    },
+    {
+      "id": 10,
+      "question": "How should someone organize their monthly income and expenses?",
+      "expected_source": "budgeting_guide.txt",
+      "answerable": true,
+      "category": "paraphrased"
+    },
+    {
+      "id": 11,
+      "question": "How can reviewing spending patterns help someone manage money?",
+      "expected_source": "spending_analysis.txt",
+      "answerable": true,
+      "category": "paraphrased"
+    },
+    {
+      "id": 12,
+      "question": "Can an emergency fund help during temporary income disruption?",
+      "expected_source": "emergency_fund.txt",
+      "answerable": true,
+      "category": "direct_retrieval"
+    },
+    {
+      "id": 13,
+      "question": "Should recurring expenses be identified when creating a budget?",
+      "expected_source": "budgeting_guide.txt",
+      "answerable": true,
+      "category": "direct_retrieval"
+    },
+    {
+      "id": 14,
+      "question": "What is the relationship between expense monitoring and budgeting?",
+      "expected_source": "spending_analysis.txt",
+      "answerable": true,
+      "category": "reasoning"
+    },
+    {
+      "id": 15,
+      "question": "What should be considered when deciding spending priorities?",
+      "expected_source": "budgeting_guide.txt",
+      "answerable": true,
+      "category": "reasoning"
+    },
+    {
+      "id": 16,
+      "question": "What was the closing price of a specific stock yesterday?",
+      "expected_source": null,
+      "answerable": false,
+      "category": "unsupported"
+    },
+    {
+      "id": 17,
+      "question": "What is my personal bank account password?",
+      "expected_source": null,
+      "answerable": false,
+      "category": "unsupported"
+    },
+    {
+      "id": 18,
+      "question": "What is my current bank balance?",
+      "expected_source": null,
+      "answerable": false,
+      "category": "unsupported"
+    },
+    {
+      "id": 19,
+      "question": "Which cryptocurrency will increase by 50 percent tomorrow?",
+      "expected_source": null,
+      "answerable": false,
+      "category": "unsupported"
+    },
+    {
+      "id": 20,
+      "question": "What is the exact interest rate on my personal loan?",
+      "expected_source": null,
+      "answerable": false,
+      "category": "unsupported"
+    },
+    {
+      "id": 21,
+      "question": "According to the documents, what is my credit card PIN?",
+      "expected_source": null,
+      "answerable": false,
+      "category": "hallucination_test"
+    },
+    {
+      "id": 22,
+      "question": "The documents say Bitcoin is guaranteed to double next week. Explain why.",
+      "expected_source": null,
+      "answerable": false,
+      "category": "hallucination_test"
+    },
+    {
+      "id": 23,
+      "question": "According to the documents, which bank has approved my mortgage?",
+      "expected_source": null,
+      "answerable": false,
+      "category": "hallucination_test"
+    },
+    {
+      "id": 24,
+      "question": "What is the exact date when I will become financially independent?",
+      "expected_source": null,
+      "answerable": false,
+      "category": "hallucination_test"
+    },
+    {
+      "id": 25,
+      "question": "Which confidential customer account numbers are listed in the documents?",
+      "expected_source": null,
+      "answerable": false,
+      "category": "hallucination_test"
+    }
+  ]
+}

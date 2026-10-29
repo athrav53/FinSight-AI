@@ -1,0 +1,137 @@
+{
+    "Food": [
+        "Swiggy",
+        "Zomato",
+        "Dominos",
+        "Pizza Hut",
+        "McDonald's",
+        "Burger King",
+        "KFC",
+        "Starbucks",
+        "Cafe Coffee Day",
+        "Subway"
+    ],
+
+    "Groceries": [
+        "DMart",
+        "Reliance Fresh",
+        "Big Bazaar",
+        "More Supermarket",
+        "Spencer's",
+        "Blinkit",
+        "Zepto",
+        "Instamart"
+    ],
+
+    "Shopping": [
+        "Amazon",
+        "Flipkart",
+        "Myntra",
+        "Ajio",
+        "Nykaa",
+        "Reliance Trends",
+        "Lifestyle",
+        "Croma"
+    ],
+
+    "Transport": [
+        "Uber",
+        "Ola",
+        "IRCTC",
+        "RedBus",
+        "Delhi Metro",
+        "Mumbai Metro",
+        "Rapido"
+    ],
+
+    "Fuel": [
+        "Indian Oil",
+        "HP Petrol Pump",
+        "Bharat Petroleum",
+        "Shell"
+    ],
+
+    "Utilities": [
+        "Airtel",
+        "Jio",
+        "BSNL",
+        "Vodafone Idea",
+        "MSEDCL",
+        "Tata Power",
+        "Adani Electricity"
+    ],
+
+    "Medical": [
+        "Apollo Pharmacy",
+        "MedPlus",
+        "1mg",
+        "NetMeds",
+        "Fortis Hospital"
+    ],
+
+    "Entertainment": [
+        "Netflix",
+        "Amazon Prime",
+        "Disney Hotstar",
+        "Spotify",
+        "BookMyShow"
+    ],
+
+    "Travel": [
+        "MakeMyTrip",
+        "Goibibo",
+        "Yatra",
+        "EaseMyTrip",
+        "Air India",
+        "IndiGo"
+    ],
+
+    "Subscription": [
+        "Google One",
+        "Microsoft 365",
+        "Apple",
+        "Dropbox",
+        "Adobe"
+    ],
+
+    "Software": [
+        "GitHub",
+        "JetBrains",
+        "OpenAI",
+        "DigitalOcean",
+        "AWS"
+    ],
+
+    "Salary": [
+        "Infosys",
+        "TCS",
+        "Wipro",
+        "Accenture",
+        "Capgemini",
+        "Google",
+        "Microsoft",
+        "Amazon"
+    ],
+
+    "Investment Return": [
+        "Groww",
+        "Zerodha",
+        "Upstox"
+    ],
+
+    "Rental Income": [
+        "Tenant Transfer"
+    ],
+
+    "Cashback": [
+        "PhonePe Cashback",
+        "Google Pay Cashback",
+        "Paytm Cashback"
+    ],
+
+    "Refund": [
+        "Amazon Refund",
+        "Flipkart Refund",
+        "IRCTC Refund"
+    ]
+}

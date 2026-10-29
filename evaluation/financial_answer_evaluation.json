@@ -1,0 +1,174 @@
+{
+  "evaluation_name": "Financial Answer Accuracy",
+  "timestamp": "2026-10-29T13:51:57.251612",
+  "total_questions": 6,
+  "passed": 6,
+  "failed": 0,
+  "accuracy_percent": 100.0,
+  "total_time_seconds": 211.01,
+  "average_latency_seconds": 35.17,
+  "results": [
+    {
+      "question": "What is my total spending?",
+      "expected_tool": "get_total_expenses",
+      "actual_tool": "get_total_expenses",
+      "agent_status": "success",
+      "answer": "₹463956.45",
+      "evaluation": {
+        "passed": true,
+        "reason": "Financial amounts matched database result.",
+        "database_amounts": [
+          "463956.45"
+        ],
+        "answer_amounts": [
+          "463956.45"
+        ],
+        "invented_amounts": []
+      },
+      "response_time_seconds": 62.98,
+      "error": null
+    },
+    {
+      "question": "Show my 3 largest transactions with their amounts.",
+      "expected_tool": "get_top_expenses",
+      "actual_tool": "get_top_expenses",
+      "agent_status": "success",
+      "answer": "27265.15, 20133.94, 20002.79",
+      "evaluation": {
+        "passed": true,
+        "reason": "Financial amounts matched database result.",
+        "database_amounts": [
+          "27265.15",
+          "20133.94",
+          "20002.79"
+        ],
+        "answer_amounts": [
+          "27265.15",
+          "20133.94",
+          "20002.79"
+        ],
+        "invented_amounts": []
+      },
+      "response_time_seconds": 25.11,
+      "error": null
+    },
+    {
+      "question": "Show my spending totals by category.",
+      "expected_tool": "get_category_spending",
+      "actual_tool": "get_category_spending",
+      "agent_status": "success",
+      "answer": "Shopping: ₹67544.95\nEMI: ₹65089.8\nGroceries: ₹65089.8\nFood: ₹55701.6\nSoftware: ₹42895.5\nEducation: ₹39053.88\nUtilities: ₹32544.9\nOffice Expense: ₹28597.0\nTravel: ₹28597.0\nMedical: ₹26035.92\nEntertainment: ₹6403.05\nTransport: ₹4268.7\nRecharge: ₹2134.35",
+      "evaluation": {
+        "passed": true,
+        "reason": "Financial amounts matched database result.",
+        "database_amounts": [
+          "67544.95",
+          "65089.80",
+          "65089.80",
+          "55701.60",
+          "42895.50",
+          "39053.88",
+          "32544.90",
+          "28597.00",
+          "28597.00",
+          "26035.92",
+          "6403.05",
+          "4268.70",
+          "2134.35"
+        ],
+        "answer_amounts": [
+          "67544.95",
+          "39053.88",
+          "26035.92",
+          "6403.05",
+          "2134.35"
+        ],
+        "invented_amounts": []
+      },
+      "response_time_seconds": 38.99,
+      "error": null
+    },
+    {
+      "question": "Show my monthly spending totals.",
+      "expected_tool": "get_monthly_spending",
+      "actual_tool": "get_monthly_spending",
+      "agent_status": "success",
+      "answer": "2026-09: ₹325887.31\n2026-10: ₹138069.14",
+      "evaluation": {
+        "passed": true,
+        "reason": "Financial amounts matched database result.",
+        "database_amounts": [
+          "325887.31",
+          "138069.14"
+        ],
+        "answer_amounts": [
+          "325887.31",
+          "138069.14"
+        ],
+        "invented_amounts": []
+      },
+      "response_time_seconds": 20.72,
+      "error": null
+    },
+    {
+      "question": "Show my top 3 merchants and their spending amounts.",
+      "expected_tool": "get_top_merchants",
+      "actual_tool": "get_top_merchants",
+      "agent_status": "success",
+      "answer": "1. Unknown: ₹134875.03\n2. Big Bazaar: ₹31816.86\n3. Pizza Hut: ₹25768.37",
+      "evaluation": {
+        "passed": true,
+        "reason": "Financial amounts matched database result.",
+        "database_amounts": [
+          "134875.03",
+          "31816.86",
+          "25768.37"
+        ],
+        "answer_amounts": [
+          "134875.03",
+          "31816.86",
+          "25768.37"
+        ],
+        "invented_amounts": []
+      },
+      "response_time_seconds": 23.04,
+      "error": null
+    },
+    {
+      "question": "Find my Amazon transactions and their amounts.",
+      "expected_tool": "search_transactions",
+      "actual_tool": "search_transactions",
+      "agent_status": "success",
+      "answer": "218.49, 14748.72, 96.88, 161.01, 715.05, 728.93, 68.9, 105.38, 76.83, 1067.7",
+      "evaluation": {
+        "passed": true,
+        "reason": "Financial amounts matched database result.",
+        "database_amounts": [
+          "218.49",
+          "14748.72",
+          "96.88",
+          "161.01",
+          "715.05",
+          "728.93",
+          "68.90",
+          "105.38",
+          "76.83",
+          "1067.70"
+        ],
+        "answer_amounts": [
+          "218.49",
+          "14748.72",
+          "96.88",
+          "161.01",
+          "715.05",
+          "728.93",
+          "105.38",
+          "76.83"
+        ],
+        "invented_amounts": []
+      },
+      "response_time_seconds": 40.17,
+      "error": null
+    }
+  ]
+}

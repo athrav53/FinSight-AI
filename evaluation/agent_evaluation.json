@@ -1,0 +1,194 @@
+{
+  "evaluation_name": "FinSight AI Agent Tool Selection",
+  "timestamp": "2026-10-29T00:47:18.263615",
+  "total_questions": 18,
+  "correct_predictions": 18,
+  "incorrect_predictions": 0,
+  "accuracy_percent": 100.0,
+  "total_time_seconds": 234.12,
+  "results": [
+    {
+      "question": "How much did I spend in total?",
+      "expected_tool": "get_total_expenses",
+      "predicted_tool": "get_total_expenses",
+      "arguments": {},
+      "passed": true,
+      "response_time_seconds": 3.11,
+      "error": null
+    },
+    {
+      "question": "What is my overall expenditure?",
+      "expected_tool": "get_total_expenses",
+      "predicted_tool": "get_total_expenses",
+      "arguments": {},
+      "passed": true,
+      "response_time_seconds": 12.84,
+      "error": null
+    },
+    {
+      "question": "Calculate my total debit amount.",
+      "expected_tool": "get_total_expenses",
+      "predicted_tool": "get_total_expenses",
+      "arguments": {},
+      "passed": true,
+      "response_time_seconds": 12.49,
+      "error": null
+    },
+    {
+      "question": "Show my 5 largest expenses.",
+      "expected_tool": "get_top_expenses",
+      "predicted_tool": "get_top_expenses",
+      "arguments": {
+        "limit": 5
+      },
+      "passed": true,
+      "response_time_seconds": 12.6,
+      "error": null
+    },
+    {
+      "question": "What were my biggest transactions?",
+      "expected_tool": "get_top_expenses",
+      "predicted_tool": "get_top_expenses",
+      "arguments": {
+        "limit": 5
+      },
+      "passed": true,
+      "response_time_seconds": 13.03,
+      "error": null
+    },
+    {
+      "question": "List my top 3 highest payments.",
+      "expected_tool": "get_top_expenses",
+      "predicted_tool": "get_top_expenses",
+      "arguments": {
+        "limit": 3
+      },
+      "passed": true,
+      "response_time_seconds": 13.68,
+      "error": null
+    },
+    {
+      "question": "Show my spending by category.",
+      "expected_tool": "get_category_spending",
+      "predicted_tool": "get_category_spending",
+      "arguments": {},
+      "passed": true,
+      "response_time_seconds": 12.78,
+      "error": null
+    },
+    {
+      "question": "Which expense category costs the most?",
+      "expected_tool": "get_category_spending",
+      "predicted_tool": "get_category_spending",
+      "arguments": {},
+      "passed": true,
+      "response_time_seconds": 14.63,
+      "error": null
+    },
+    {
+      "question": "Give me a category-wise expense breakdown.",
+      "expected_tool": "get_category_spending",
+      "predicted_tool": "get_category_spending",
+      "arguments": {},
+      "passed": true,
+      "response_time_seconds": 15.45,
+      "error": null
+    },
+    {
+      "question": "How much did I spend each month?",
+      "expected_tool": "get_monthly_spending",
+      "predicted_tool": "get_monthly_spending",
+      "arguments": {},
+      "passed": true,
+      "response_time_seconds": 14.21,
+      "error": null
+    },
+    {
+      "question": "Compare my spending across months.",
+      "expected_tool": "get_monthly_spending",
+      "predicted_tool": "get_monthly_spending",
+      "arguments": {},
+      "passed": true,
+      "response_time_seconds": 12.54,
+      "error": null
+    },
+    {
+      "question": "Show my monthly expenditure trend.",
+      "expected_tool": "get_monthly_spending",
+      "predicted_tool": "get_monthly_spending",
+      "arguments": {},
+      "passed": true,
+      "response_time_seconds": 12.15,
+      "error": null
+    },
+    {
+      "question": "Which merchants received the most money?",
+      "expected_tool": "get_top_merchants",
+      "predicted_tool": "get_top_merchants",
+      "arguments": {
+        "limit": 5
+      },
+      "passed": true,
+      "response_time_seconds": 13.2,
+      "error": null
+    },
+    {
+      "question": "Show my top 5 merchants by spending.",
+      "expected_tool": "get_top_merchants",
+      "predicted_tool": "get_top_merchants",
+      "arguments": {
+        "limit": 5
+      },
+      "passed": true,
+      "response_time_seconds": 13.44,
+      "error": null
+    },
+    {
+      "question": "Where do I spend the most money?",
+      "expected_tool": "get_top_merchants",
+      "predicted_tool": "get_top_merchants",
+      "arguments": {
+        "limit": 5
+      },
+      "passed": true,
+      "response_time_seconds": 13.58,
+      "error": null
+    },
+    {
+      "question": "Show my Amazon transactions.",
+      "expected_tool": "search_transactions",
+      "predicted_tool": "search_transactions",
+      "arguments": {
+        "search_term": "Amazon",
+        "limit": 10
+      },
+      "passed": true,
+      "response_time_seconds": 15.11,
+      "error": null
+    },
+    {
+      "question": "Find transactions related to Croma.",
+      "expected_tool": "search_transactions",
+      "predicted_tool": "search_transactions",
+      "arguments": {
+        "search_term": "Croma",
+        "limit": 10
+      },
+      "passed": true,
+      "response_time_seconds": 14.27,
+      "error": null
+    },
+    {
+      "question": "Search for payments to Pizza Hut.",
+      "expected_tool": "search_transactions",
+      "predicted_tool": "search_transactions",
+      "arguments": {
+        "search_term": "Pizza Hut",
+        "limit": 10
+      },
+      "passed": true,
+      "response_time_seconds": 14.99,
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+    "upi": [
+        "PhonePe",
+        "Google Pay",
+        "Paytm",
+        "BHIM"
+    ],
+
+    "card": [
+        "POS",
+        "Debit Card",
+        "Credit Card"
+    ],
+
+    "bank_transfer": [
+        "NEFT",
+        "IMPS",
+        "RTGS"
+    ],
+
+    "cash": [
+        "ATM Withdrawal",
+        "Cash Deposit"
+    ],
+
+    "auto_debit": [
+        "NACH",
+        "ECS"
+    ]
+}

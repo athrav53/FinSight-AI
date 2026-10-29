@@ -1,0 +1,37 @@
+{
+    "income": [
+        "Salary",
+        "Bonus",
+        "Freelance",
+        "Interest",
+        "Dividend",
+        "Cashback",
+        "Refund",
+        "Rental Income",
+        "Gift",
+        "Investment Return"
+    ],
+
+    "expense": [
+        "Food",
+        "Groceries",
+        "Shopping",
+        "Transport",
+        "Fuel",
+        "Rent",
+        "EMI",
+        "Utilities",
+        "Medical",
+        "Education",
+        "Entertainment",
+        "Travel",
+        "Insurance",
+        "Recharge",
+        "Subscription",
+        "Software",
+        "Office Expense",
+        "Personal Care",
+        "Tax",
+        "Others"
+    ]
+}

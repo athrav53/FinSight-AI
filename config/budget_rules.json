@@ -1,0 +1,39 @@
+{
+    "student": {
+        "Food": 0.30,
+        "Transport": 0.10,
+        "Shopping": 0.15,
+        "Entertainment": 0.15,
+        "Recharge": 0.05,
+        "Savings": 0.25
+    },
+
+    "salaried": {
+        "Food": 0.12,
+        "Rent": 0.25,
+        "Shopping": 0.10,
+        "Utilities": 0.08,
+        "Investment": 0.15,
+        "Travel": 0.05,
+        "Savings": 0.25
+    },
+
+    "freelancer": {
+        "Food": 0.15,
+        "Software": 0.15,
+        "Travel": 0.10,
+        "Shopping": 0.10,
+        "Office Expense": 0.10,
+        "Savings": 0.40
+    },
+
+    "family": {
+        "Groceries": 0.20,
+        "Medical": 0.08,
+        "Education": 0.12,
+        "Shopping": 0.10,
+        "Utilities": 0.10,
+        "EMI": 0.20,
+        "Savings": 0.20
+    }
+}

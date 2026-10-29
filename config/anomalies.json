@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "frozen_on": "2026-10-09",
+  "types": {
+    "duplicate":       {"user_prob": 0.5,  "count": [1, 2]},
+    "large_amount":    {"user_prob": 0.4,  "multiplier": [8, 20], "min_amount": 15000},
+    "daily_spike":     {"user_prob": 0.3,  "extra_txns": [6, 10]},
+    "merchant_burst":  {"user_prob": 0.25, "repeats": [4, 7], "amount": [49, 499]},
+    "new_payee_large": {"user_prob": 0.3,  "amount": [20000, 90000]}
+  }
+}

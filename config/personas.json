@@ -1,0 +1,58 @@
+{
+    "student": {
+        "age_range": [18, 25],
+        "income_range": [10000, 30000],
+        "monthly_transactions": [40, 120],
+        "top_categories": [
+            "Food",
+            "Transport",
+            "Shopping",
+            "Entertainment",
+            "Recharge"
+        ]
+    },
+
+    "salaried": {
+        "age_range": [23, 60],
+        "income_range": [40000, 180000],
+        "monthly_transactions": [80, 250],
+        "top_categories": [
+            "Salary",
+            "Food",
+            "Rent",
+            "Shopping",
+            "Utilities",
+            "Investment",
+            "Travel"
+        ]
+    },
+
+    "freelancer": {
+        "age_range": [21, 50],
+        "income_range": [25000, 250000],
+        "monthly_transactions": [60, 200],
+        "top_categories": [
+            "Food",
+            "Software",
+            "Office",
+            "Travel",
+            "Shopping",
+            "Client Payment"
+        ]
+    },
+
+    "family": {
+        "age_range": [28, 65],
+        "income_range": [80000, 350000],
+        "monthly_transactions": [120, 400],
+        "top_categories": [
+            "Salary",
+            "Groceries",
+            "Medical",
+            "Education",
+            "Utilities",
+            "EMI",
+            "Shopping"
+        ]
+    }
+}
