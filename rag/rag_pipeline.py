@@ -3,6 +3,7 @@ FinSight AI - Retrieval-Augmented Generation Pipeline
 
 Features:
 - Document retrieval using vector similarity
+- Optional TF-IDF reranking
 - Ollama Gemma 3 response generation
 - Pydantic structured JSON outputs
 - Plain-text fallback for invalid JSON
@@ -16,14 +17,17 @@ Use only synthetic or public educational documents.
 
 import os
 import re
+import time
 from pathlib import Path
+from typing import List
+from rag.observability import log_llm_metrics
 
 import requests
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field, ValidationError, ConfigDict
 
 from rag.vector_store import VectorStore
-from typing import List
+from rag.reranker import Reranker
 
 
 # =====================================================
@@ -90,13 +94,12 @@ class RAGStructuredResponse(BaseModel):
             "Grounded answer using only retrieved documents."
         )
     )
+
     citations: List[int] = Field(
-    description=(
-        "Source numbers supporting the answer."
+        description=(
+            "Source numbers supporting the answer."
+        )
     )
-)
-
-
 
 
 # =====================================================
@@ -247,15 +250,6 @@ def build_rag_prompt(
 def extract_monetary_amounts(text):
     """
     Extract monetary amounts from text.
-
-    Examples:
-        ₹5,000
-        Rs. 5000
-        INR 5000
-        $100
-        £250
-
-    Returns normalized numeric values.
     """
 
     pattern = (
@@ -367,14 +361,19 @@ def validate_source_citations(
 # OLLAMA REQUEST
 # =====================================================
 
+
 def call_ollama(
     prompt,
-    structured=False
+    structured=False,
+    return_metrics=False
 ):
     """
-    Send a generation request to Ollama.
+    Call Ollama and automatically log performance.
 
-    Returns the model's response text.
+    Default: returns answer string.
+    return_metrics=True: returns answer and metrics.
+
+    Logs successful requests and request failures.
     """
 
     payload = {
@@ -392,19 +391,77 @@ def call_ollama(
             RAGStructuredResponse.model_json_schema()
         )
 
-    response = requests.post(
-        OLLAMA_GENERATE_URL,
-        json=payload,
-        timeout=OLLAMA_TIMEOUT
-    )
+    start_time = time.perf_counter()
 
-    response.raise_for_status()
+    try:
+        response = requests.post(
+            OLLAMA_GENERATE_URL,
+            json=payload,
+            timeout=OLLAMA_TIMEOUT
+        )
 
-    result = response.json()
+        response.raise_for_status()
+        result = response.json()
 
-    return str(
+    except (requests.RequestException, ValueError) as error:
+        latency_ms = (
+            time.perf_counter() - start_time
+        ) * 1000
+
+        log_llm_metrics({
+            "model": OLLAMA_MODEL,
+            "status": "failure",
+            "latency_ms": round(latency_ms, 2),
+            "error_type": type(error).__name__
+        })
+
+        # Preserve original exception behaviour.
+        raise
+
+    latency_ms = (
+        time.perf_counter() - start_time
+    ) * 1000
+
+    answer = str(
         result.get("response", "")
     ).strip()
+
+    prompt_tokens = result.get("prompt_eval_count")
+    completion_tokens = result.get("eval_count")
+
+    total_tokens = (
+        prompt_tokens + completion_tokens
+        if isinstance(prompt_tokens, int)
+        and isinstance(completion_tokens, int)
+        else None
+    )
+
+    duration_ns = result.get("total_duration")
+
+    metrics = {
+        "model": result.get("model", OLLAMA_MODEL),
+        "latency_ms": round(latency_ms, 2),
+        "prompt_tokens": prompt_tokens,
+        "completion_tokens": completion_tokens,
+        "total_tokens": total_tokens,
+        "ollama_duration_ms": (
+            round(duration_ns / 1_000_000, 2)
+            if isinstance(duration_ns, (int, float))
+            else None
+        ),
+        "status": "success"
+    }
+
+    # Log automatically, regardless of return_metrics.
+    log_llm_metrics(metrics)
+
+    if return_metrics:
+        return {
+            "answer": answer,
+            "metrics": metrics
+        }
+
+    return answer
 
 
 # =====================================================
@@ -451,7 +508,7 @@ def build_source_records(chunks):
         start=1
     ):
 
-        records.append({
+        record = {
             "label": f"Source {index}",
             "document": chunk["source"],
             "chunk_id": chunk["chunk_id"],
@@ -459,7 +516,12 @@ def build_source_records(chunks):
                 chunk["similarity_score"]
             ),
             "text": chunk["text"]
-        })
+        }
+
+        if "rerank_score" in chunk:
+            record["rerank_score"] = chunk["rerank_score"]
+
+        records.append(record)
 
     return records
 
@@ -520,28 +582,16 @@ def prepare_structured_answer(
     if not citations:
         return answer
 
-    valid_numbers = set(
-        range(
-            1,
-            len(relevant_chunks) + 1
-        )
-    )
-
-    # Preserve invalid numbers so that
-    # citation validation rejects them.
-    # Never silently replace a fake citation.
-
     existing_citations = set(
         extract_citation_numbers(answer)
     )
 
+    # Preserve invalid citation numbers so
+    # downstream validation can reject them.
     for number in citations:
 
         if number not in existing_citations:
-
-            answer += (
-                f" [Source {number}]"
-            )
+            answer += f" [Source {number}]"
 
     return answer.strip()
 
@@ -554,18 +604,22 @@ def generate_rag_answer(
     question,
     vector_store,
     top_k=3,
-    min_similarity=0.25
+    min_similarity=0.25,
+    use_reranker=False,
+    candidate_k=10
 ):
     """
     Retrieve relevant documents and generate
     a validated answer.
 
-    Supports:
-    - Plain-text generation
-    - Pydantic structured output
-    - Plain-text fallback
+    Default:
+        Vector search -> Top 3 -> LLM
 
-    Existing callers can continue using:
+    With reranking:
+        Vector search -> Top 10 candidates
+        -> TF-IDF reranking -> Top 3 -> LLM
+
+    Existing callers remain compatible:
 
         generate_rag_answer(question, store)
     """
@@ -604,18 +658,62 @@ def generate_rag_answer(
             "min_similarity must be between 0 and 1."
         )
 
+    if not isinstance(use_reranker, bool):
+        raise TypeError(
+            "use_reranker must be a boolean."
+        )
+
+    if not isinstance(candidate_k, int) or candidate_k < 1:
+        raise ValueError(
+            "candidate_k must be a positive integer."
+        )
+
+    if use_reranker and candidate_k < top_k:
+        raise ValueError(
+            "candidate_k must be greater than or equal to top_k."
+        )
+
     # -----------------------------------------
     # STEP 2: DOCUMENT RETRIEVAL
     # -----------------------------------------
 
     try:
 
-        retrieved_chunks = vector_store.search(
-            question,
-            top_k=top_k
+        search_k = (
+            candidate_k
+            if use_reranker
+            else top_k
         )
 
-    except (RuntimeError, ValueError) as error:
+        retrieved_chunks = vector_store.search(
+            question,
+            top_k=search_k
+        )
+
+        # Preserve original vector ranking.
+        retrieved_sources = build_source_records(
+            retrieved_chunks
+        )
+
+        if use_reranker:
+
+            # Filter by semantic similarity first.
+            eligible_chunks = [
+                chunk
+                for chunk in retrieved_chunks
+                if chunk["similarity_score"] >= min_similarity
+            ]
+
+            reranker = Reranker(
+                top_k=top_k
+            )
+
+            retrieved_chunks = reranker.rerank(
+                question,
+                eligible_chunks
+            )
+
+    except (RuntimeError, ValueError, KeyError) as error:
 
         return make_result(
             answer=(
@@ -625,13 +723,6 @@ def generate_rag_answer(
             status="retrieval_error"
         )
 
-    # Keep the original retrieval ranking.
-    # This is useful for Hit@K evaluation.
-
-    retrieved_sources = build_source_records(
-        retrieved_chunks
-    )
-
     # -----------------------------------------
     # STEP 3: SIMILARITY FILTERING
     # -----------------------------------------
@@ -639,8 +730,7 @@ def generate_rag_answer(
     relevant_chunks = [
         chunk
         for chunk in retrieved_chunks
-        if chunk["similarity_score"]
-        >= min_similarity
+        if chunk["similarity_score"] >= min_similarity
     ]
 
     if not relevant_chunks:
@@ -697,10 +787,6 @@ def generate_rag_answer(
                         "Structured response failed:",
                         str(error)
                     )
-
-                # Invalid JSON/schema:
-                # Retry using the original
-                # plain-text generation method.
 
                 plain_prompt = build_rag_prompt(
                     question,
@@ -835,7 +921,7 @@ def generate_rag_answer(
         if index not in cited_numbers:
             continue
 
-        sources.append({
+        source_record = {
             "label": f"Source {index}",
             "document": chunk["source"],
             "chunk_id": chunk["chunk_id"],
@@ -843,7 +929,14 @@ def generate_rag_answer(
                 chunk["similarity_score"]
             ),
             "text": chunk["text"]
-        })
+        }
+
+        if "rerank_score" in chunk:
+            source_record["rerank_score"] = (
+                chunk["rerank_score"]
+            )
+
+        sources.append(source_record)
 
     # -----------------------------------------
     # STEP 10: SUCCESS
@@ -864,25 +957,11 @@ def generate_rag_answer(
 
 if __name__ == "__main__":
 
-    print(
-        "FinSight AI RAG Pipeline"
-    )
+    print("FinSight AI RAG Pipeline")
+    print("Model:", OLLAMA_MODEL)
+    print("Structured output enabled:", STRUCTURED_OUTPUT)
 
     print(
-        "Model:",
-        OLLAMA_MODEL
-    )
-
-    print(
-        "Structured output enabled:",
-        STRUCTURED_OUTPUT
-    )
-
-    print(
-        "Run the RAG tests using:"
-    )
-
-    print(
-        "python -m pytest "
-        "tests/test_rag_pipeline.py -v"
+        "Run the RAG tests using:\n"
+        "python -m pytest tests/test_rag_pipeline.py -v"
     )

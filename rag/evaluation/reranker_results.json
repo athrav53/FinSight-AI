@@ -1,0 +1,22 @@
+{
+    "baseline": {
+        "total_questions": 40,
+        "hit_at_3": 1.0,
+        "mrr_at_3": 0.9875,
+        "document_precision": 0.7583333333333333,
+        "average_latency_ms": 51.22339750000001
+    },
+    "reranked": {
+        "total_questions": 40,
+        "hit_at_3": 0.975,
+        "mrr_at_3": 0.9458333333333332,
+        "document_precision": 0.7125,
+        "average_latency_ms": 56.9424649999998
+    },
+    "changes": {
+        "hit_at_3": -0.025000000000000022,
+        "mrr_at_3": -0.04166666666666685,
+        "document_precision": -0.04583333333333328,
+        "average_latency_ms": 5.719067499999788
+    }
+}

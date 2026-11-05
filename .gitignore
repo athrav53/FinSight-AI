@@ -57,3 +57,7 @@ evaluation/results/
 
 # Local configuration used for testing
 config/test.json
+# Additional virtual environment
+.venv_clean/
+# Runtime logs
+logs/

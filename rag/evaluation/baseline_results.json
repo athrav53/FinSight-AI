@@ -1,0 +1,19 @@
+{
+  "experiment": "baseline_retrieval",
+  "dataset": "retrieval_questions.json",
+  "total_questions": 40,
+  "retrieval_configuration": {
+    "top_k": 3,
+    "chunk_size": 120,
+    "overlap": 25,
+    "embedding_model": "nomic-embed-text"
+  },
+  "metrics": {
+    "hit_at_3": 1.0,
+    "mrr_at_3": 0.988,
+    "document_precision": 0.7583,
+    "document_recall": 1.0
+  },
+  "passed": 40,
+  "failed": 0
+}
