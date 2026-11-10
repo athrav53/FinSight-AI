@@ -11,6 +11,7 @@ Features:
 - Monetary amount validation
 - Retrieval metadata for evaluation
 - Graceful handling of Ollama failures
+- Every LLM call logged for observability (feature="rag")
 
 Use only synthetic or public educational documents.
 """
@@ -20,12 +21,12 @@ import re
 import time
 from pathlib import Path
 from typing import List
-from rag.observability import log_llm_metrics
 
 import requests
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field, ValidationError, ConfigDict
 
+from rag.observability import log_llm_metrics
 from rag.vector_store import VectorStore
 from rag.reranker import Reranker
 
@@ -409,6 +410,7 @@ def call_ollama(
         ) * 1000
 
         log_llm_metrics({
+            "feature": "rag",
             "model": OLLAMA_MODEL,
             "status": "failure",
             "latency_ms": round(latency_ms, 2),
@@ -439,6 +441,7 @@ def call_ollama(
     duration_ns = result.get("total_duration")
 
     metrics = {
+        "feature": "rag",
         "model": result.get("model", OLLAMA_MODEL),
         "latency_ms": round(latency_ms, 2),
         "prompt_tokens": prompt_tokens,

@@ -1,5 +1,15 @@
 
 
+"""
+FinSight AI - FastAPI Application
+
+Endpoints:
+- GET  /health   Service status
+- POST /ask      RAG answer with source documents
+- POST /agent    Financial agent (API key required, user-scoped)
+- GET  /metrics  LLM observability summary (API key required)
+"""
+
 import os
 import secrets
 import logging
@@ -8,7 +18,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, Depends, Header, HTTPException
+from fastapi import FastAPI, Depends, Header, HTTPException, Query
 from pydantic import BaseModel, Field
 
 
@@ -43,6 +53,7 @@ from rag.pgvector_store import PgVectorStore
 from rag.rag_pipeline import generate_rag_answer
 from agent.financial_agent import run_agent
 from api.request_middleware import request_tracking_middleware
+from rag.observability import summarize_llm_metrics
 
 
 # ============================================================
@@ -168,9 +179,15 @@ def ask_question(request: QuestionRequest):
             use_reranker=False
         )
 
+        # Pipeline sources are dicts; the API returns document names.
+        sources = [
+            source.get("document", "") if isinstance(source, dict) else str(source)
+            for source in result.get("sources", [])
+        ]
+
         return QuestionResponse(
             answer=result.get("answer", ""),
-            sources=result.get("sources", []),
+            sources=list(dict.fromkeys(sources)),
             model=result.get("model", "gemma3:4b"),
             status=result.get("status", "unknown")
         )
@@ -271,3 +288,29 @@ def ask_financial_agent(
             detail="Financial agent request failed."
         )
 
+
+# ============================================================
+# 11. LLM OBSERVABILITY METRICS
+# ============================================================
+
+@app.get("/metrics")
+def llm_metrics(
+    hours: int = Query(24, ge=1, le=2160),
+    user_id: str = Depends(get_authenticated_user)
+):
+    """
+    LLM calls in the last `hours` hours: count, failure rate,
+    average and p95 latency, tokens and estimated cost,
+    overall and per feature (rag, agent). Requires the API key.
+    """
+
+    try:
+        return summarize_llm_metrics(hours)
+
+    except Exception:
+        logger.exception("Could not read LLM metrics")
+
+        raise HTTPException(
+            status_code=503,
+            detail="Monitoring data is unavailable."
+        )

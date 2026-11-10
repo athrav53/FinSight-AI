@@ -32,6 +32,7 @@ import requests
 from dotenv import load_dotenv
 
 from agent.tools import AVAILABLE_TOOLS, execute_tool
+from rag.observability import log_llm_metrics
 
 
 # =====================================================
@@ -219,20 +220,56 @@ def call_ollama(prompt, json_mode=False, num_predict=256):
 
     start_time = time.perf_counter()
 
-    response = SESSION.post(
-        f"{OLLAMA_URL}/api/generate",
-        json=payload,
-        timeout=OLLAMA_TIMEOUT
-    )
+    try:
+        response = SESSION.post(
+            f"{OLLAMA_URL}/api/generate",
+            json=payload,
+            timeout=OLLAMA_TIMEOUT
+        )
 
-    response.raise_for_status()
+        response.raise_for_status()
 
-    result = response.json()
+        result = response.json()
+
+    except (requests.RequestException, ValueError) as error:
+        log_llm_metrics({
+            "feature": "agent",
+            "model": OLLAMA_MODEL,
+            "status": "failure",
+            "latency_ms": round((time.perf_counter() - start_time) * 1000, 2),
+            "error_type": type(error).__name__
+        })
+
+        # Preserve original behaviour: run_agent shows a friendly error.
+        raise
 
     elapsed = round(
         time.perf_counter() - start_time,
         2
     )
+
+    prompt_tokens = result.get("prompt_eval_count")
+    completion_tokens = result.get("eval_count")
+    duration_ns = result.get("total_duration")
+
+    log_llm_metrics({
+        "feature": "agent",
+        "model": result.get("model", OLLAMA_MODEL),
+        "status": "success",
+        "latency_ms": round(elapsed * 1000, 2),
+        "prompt_tokens": prompt_tokens,
+        "completion_tokens": completion_tokens,
+        "total_tokens": (
+            prompt_tokens + completion_tokens
+            if isinstance(prompt_tokens, int) and isinstance(completion_tokens, int)
+            else None
+        ),
+        "ollama_duration_ms": (
+            round(duration_ns / 1_000_000, 2)
+            if isinstance(duration_ns, (int, float))
+            else None
+        )
+    })
 
     return {
         "response": result.get("response", "").strip(),
@@ -678,7 +715,7 @@ def run_agent(question, user_id=None):
     7. Return performance metrics
     """
 
-        # SECURITY: REQUIRE USER SCOPE
+    # SECURITY: REQUIRE USER SCOPE
 
     if user_id is None and not ALLOW_ALL_USERS:
         return {
@@ -891,7 +928,7 @@ if __name__ == "__main__":
 
         print("QUESTION:", question)
 
-        result = run_agent(question)
+        result = run_agent(question, user_id=os.getenv("FINSIGHT_DEMO_USER_ID", "demo"))
 
         print(
             json.dumps(

@@ -5,6 +5,8 @@ import uuid
 
 from fastapi import Request
 
+from rag.observability import current_request_id
+
 logger = logging.getLogger("finsight.api")
 
 
@@ -13,6 +15,9 @@ async def request_tracking_middleware(request: Request, call_next):
     start_time = time.perf_counter()
 
     request.state.request_id = request_id
+
+    # Make the ID visible to LLM logging for this request.
+    token = current_request_id.set(request_id)
 
     try:
         response = await call_next(request)
@@ -24,6 +29,8 @@ async def request_tracking_middleware(request: Request, call_next):
             request.url.path,
         )
         raise
+    finally:
+        current_request_id.reset(token)
 
     duration_ms = round(
         (time.perf_counter() - start_time) * 1000,
