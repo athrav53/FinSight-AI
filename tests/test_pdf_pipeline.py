@@ -1,4 +1,7 @@
-﻿from decimal import Decimal
+﻿import pytest
+
+pytestmark = pytest.mark.integration
+from decimal import Decimal
 from pathlib import Path
 
 from finsight.ingestion.statement_parser import parse_demo_statement

@@ -16,7 +16,9 @@ IMPORTANT:
 - Does not permanently insert transactions.
 - Rolls back temporary database changes.
 """
+import pytest
 
+pytestmark = pytest.mark.integration
 from pathlib import Path
 
 import pytest

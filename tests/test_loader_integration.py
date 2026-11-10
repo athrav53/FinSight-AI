@@ -13,7 +13,9 @@ Tests:
 
 Never connects the loader to the production database.
 """
+import pytest
 
+pytestmark = pytest.mark.integration
 import os
 from pathlib import Path
 from unittest.mock import patch
