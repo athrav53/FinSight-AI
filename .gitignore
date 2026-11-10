@@ -1,63 +1,48 @@
-# Environment variables and secrets
+# Python virtual environments
+.venv/
+.venv_old/
+venv/
+
+# Environment secrets
 .env
 .env.*
 !.env.example
-*.pem
-*.key
-
-# Python virtual environments
-.venv/
-.venv311/
-venv/
-env/
 
 # Python cache
 __pycache__/
 *.py[cod]
 .pytest_cache/
-.mypy_cache/
 
-# Local databases and backups
-backups/
-*.db
-*.sqlite
-*.sqlite3
-*.dump
-*.backup
+# Local backups
+requirements_backup*.txt
+README_*_BACKUP.md
 
-# Local datasets (review before publishing)
-data/
-
-# Large archives
-*.zip
-*.rar
-*.7z
-
-# Logs
-*.log
-*_log.txt
-
-# Local generated files
-installed_packages.txt
-
-# IDE and OS files
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
-# Development backups
-app_backup.py
-
-# Temporary test scripts
-test_buttons.py
-test_loader.py
-
-# Generated evaluation results
+# Generated evaluation reports
 evaluation/results/
 
-# Local configuration used for testing
-config/test.json
-# Additional virtual environment
+# Local temporary files
+*.log
+# Additional virtual environments
+.venv311/
 .venv_clean/
-# Runtime logs
+
+# Backups and archives
+backups/
+app_backup.py
+FinSight_Code_Review.zip
+
+# Local data and configuration
+data/
+config/test.json
+
+# Logs and package snapshots
 logs/
+*.log
+*_log.txt
+installed_packages.txt
+
+# Temporary development scripts
+test_buttons.py
+test_loader.py
+# PostgreSQL pgvector extension source and build files
+/pgvector/

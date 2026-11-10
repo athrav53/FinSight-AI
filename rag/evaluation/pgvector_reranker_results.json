@@ -1,0 +1,1134 @@
+{
+  "collection_id": "finsight_509b0086ca64b0adf3ebd2e0",
+  "questions": [
+    {
+      "question": "What is budgeting?",
+      "expected": "budgeting_guide.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.3333333333333333,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.3333333333333333,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 709.0219999663532,
+      "reranking_ms": 19.8443999979645,
+      "baseline_sources": [
+        "budgeting_guide.txt",
+        "financial_planning.txt",
+        "spending_analysis.txt"
+      ],
+      "reranked_sources": [
+        "budgeting_guide.txt",
+        "spending_analysis.txt",
+        "financial_planning.txt"
+      ]
+    },
+    {
+      "question": "Why is creating a monthly budget important?",
+      "expected": "budgeting_guide.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.3333333333333333,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 125.02819998189807,
+      "reranking_ms": 9.581599850207567,
+      "baseline_sources": [
+        "budgeting_guide.txt",
+        "expense_categorization.txt",
+        "expense_categorization.txt"
+      ],
+      "reranked_sources": [
+        "budgeting_guide.txt",
+        "subscription_management.txt",
+        "debt_management.txt"
+      ]
+    },
+    {
+      "question": "How can I control unnecessary spending using a budget?",
+      "expected": "budgeting_guide.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.3333333333333333,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.3333333333333333,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 146.44709997810423,
+      "reranking_ms": 10.420899838209152,
+      "baseline_sources": [
+        "budgeting_guide.txt",
+        "spending_analysis.txt",
+        "expense_categorization.txt"
+      ],
+      "reranked_sources": [
+        "budgeting_guide.txt",
+        "expense_categorization.txt",
+        "spending_analysis.txt"
+      ]
+    },
+    {
+      "question": "What is an emergency fund?",
+      "expected": "emergency_fund.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.3333333333333333,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.3333333333333333,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 144.79899988509715,
+      "reranking_ms": 10.166099993512034,
+      "baseline_sources": [
+        "emergency_fund.txt",
+        "investment_fundamentals.txt",
+        "financial_planning.txt"
+      ],
+      "reranked_sources": [
+        "emergency_fund.txt",
+        "financial_planning.txt",
+        "investment_fundamentals.txt"
+      ]
+    },
+    {
+      "question": "Why should I maintain emergency savings?",
+      "expected": "emergency_fund.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.3333333333333333,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 0.5,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 133.51280009374022,
+      "reranking_ms": 9.589700028300285,
+      "baseline_sources": [
+        "emergency_fund.txt",
+        "savings_goals.txt",
+        "financial_planning.txt"
+      ],
+      "reranked_sources": [
+        "savings_goals.txt",
+        "emergency_fund.txt",
+        "savings_goals.txt"
+      ]
+    },
+    {
+      "question": "How can I build an emergency fund?",
+      "expected": "emergency_fund.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.3333333333333333,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.3333333333333333,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 227.27630008012056,
+      "reranking_ms": 9.480400010943413,
+      "baseline_sources": [
+        "emergency_fund.txt",
+        "financial_planning.txt",
+        "investment_fundamentals.txt"
+      ],
+      "reranked_sources": [
+        "emergency_fund.txt",
+        "financial_planning.txt",
+        "investment_fundamentals.txt"
+      ]
+    },
+    {
+      "question": "What is spending analysis?",
+      "expected": "spending_analysis.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 130.69649995304644,
+      "reranking_ms": 18.397700041532516,
+      "baseline_sources": [
+        "spending_analysis.txt",
+        "expense_categorization.txt",
+        "expense_categorization.txt"
+      ],
+      "reranked_sources": [
+        "spending_analysis.txt",
+        "expense_categorization.txt",
+        "expense_categorization.txt"
+      ]
+    },
+    {
+      "question": "How can monthly spending trends help identify expenses?",
+      "expected": "spending_analysis.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.3333333333333333,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.3333333333333333,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 157.8617999330163,
+      "reranking_ms": 9.148300159722567,
+      "baseline_sources": [
+        "spending_analysis.txt",
+        "budgeting_guide.txt",
+        "expense_categorization.txt"
+      ],
+      "reranked_sources": [
+        "spending_analysis.txt",
+        "budgeting_guide.txt",
+        "expense_categorization.txt"
+      ]
+    },
+    {
+      "question": "Why should I analyze my spending patterns?",
+      "expected": "spending_analysis.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 0.3333333333333333,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 115.06729992106557,
+      "reranking_ms": 9.395200060680509,
+      "baseline_sources": [
+        "spending_analysis.txt",
+        "expense_categorization.txt",
+        "expense_categorization.txt"
+      ],
+      "reranked_sources": [
+        "expense_categorization.txt",
+        "expense_categorization.txt",
+        "spending_analysis.txt"
+      ]
+    },
+    {
+      "question": "What is the debt avalanche method?",
+      "expected": "debt_management.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 108.49999985657632,
+      "reranking_ms": 9.398699970915914,
+      "baseline_sources": [
+        "debt_management.txt",
+        "debt_management.txt",
+        "debt_management.txt"
+      ],
+      "reranked_sources": [
+        "debt_management.txt",
+        "debt_management.txt",
+        "debt_management.txt"
+      ]
+    },
+    {
+      "question": "How is the debt-to-income ratio calculated?",
+      "expected": "debt_management.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 110.89470004662871,
+      "reranking_ms": 10.14470006339252,
+      "baseline_sources": [
+        "debt_management.txt",
+        "financial_planning.txt",
+        "financial_planning.txt"
+      ],
+      "reranked_sources": [
+        "debt_management.txt",
+        "financial_planning.txt",
+        "debt_management.txt"
+      ]
+    },
+    {
+      "question": "What is the difference between debt snowball and debt avalanche?",
+      "expected": "debt_management.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 131.6835000179708,
+      "reranking_ms": 9.373599896207452,
+      "baseline_sources": [
+        "debt_management.txt",
+        "debt_management.txt",
+        "debt_management.txt"
+      ],
+      "reranked_sources": [
+        "debt_management.txt",
+        "debt_management.txt",
+        "debt_management.txt"
+      ]
+    },
+    {
+      "question": "What is credit utilization?",
+      "expected": "credit_score.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 111.18269991129637,
+      "reranking_ms": 8.916100021451712,
+      "baseline_sources": [
+        "credit_score.txt",
+        "credit_score.txt",
+        "debt_management.txt"
+      ],
+      "reranked_sources": [
+        "credit_score.txt",
+        "credit_score.txt",
+        "credit_score.txt"
+      ]
+    },
+    {
+      "question": "How is credit utilization calculated?",
+      "expected": "credit_score.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 194.90660005249083,
+      "reranking_ms": 10.549200000241399,
+      "baseline_sources": [
+        "credit_score.txt",
+        "credit_score.txt",
+        "debt_management.txt"
+      ],
+      "reranked_sources": [
+        "credit_score.txt",
+        "credit_score.txt",
+        "credit_score.txt"
+      ]
+    },
+    {
+      "question": "What factors affect a credit score?",
+      "expected": "credit_score.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 118.25999990105629,
+      "reranking_ms": 9.080100106075406,
+      "baseline_sources": [
+        "credit_score.txt",
+        "credit_score.txt",
+        "credit_score.txt"
+      ],
+      "reranked_sources": [
+        "credit_score.txt",
+        "credit_score.txt",
+        "credit_score.txt"
+      ]
+    },
+    {
+      "question": "What are SMART savings goals?",
+      "expected": "savings_goals.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 117.14689992368221,
+      "reranking_ms": 8.654100121930242,
+      "baseline_sources": [
+        "savings_goals.txt",
+        "savings_goals.txt",
+        "savings_goals.txt"
+      ],
+      "reranked_sources": [
+        "savings_goals.txt",
+        "savings_goals.txt",
+        "savings_goals.txt"
+      ]
+    },
+    {
+      "question": "How do I calculate the monthly savings needed for a financial goal?",
+      "expected": "savings_goals.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 138.53459991514683,
+      "reranking_ms": 8.0505998339504,
+      "baseline_sources": [
+        "savings_goals.txt",
+        "savings_goals.txt",
+        "savings_goals.txt"
+      ],
+      "reranked_sources": [
+        "savings_goals.txt",
+        "savings_goals.txt",
+        "financial_planning.txt"
+      ]
+    },
+    {
+      "question": "What is the savings rate?",
+      "expected": "savings_goals.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 103.16299996338785,
+      "reranking_ms": 6.595599930733442,
+      "baseline_sources": [
+        "savings_goals.txt",
+        "savings_goals.txt",
+        "savings_goals.txt"
+      ],
+      "reranked_sources": [
+        "savings_goals.txt",
+        "savings_goals.txt",
+        "savings_goals.txt"
+      ]
+    },
+    {
+      "question": "What is net cash flow?",
+      "expected": "cash_flow_management.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 123.98420018143952,
+      "reranking_ms": 8.722300175577402,
+      "baseline_sources": [
+        "cash_flow_management.txt",
+        "cash_flow_management.txt",
+        "cash_flow_management.txt"
+      ],
+      "reranked_sources": [
+        "cash_flow_management.txt",
+        "cash_flow_management.txt",
+        "cash_flow_management.txt"
+      ]
+    },
+    {
+      "question": "How do I calculate monthly net cash flow?",
+      "expected": "cash_flow_management.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 117.2155998647213,
+      "reranking_ms": 9.229599963873625,
+      "baseline_sources": [
+        "cash_flow_management.txt",
+        "cash_flow_management.txt",
+        "cash_flow_management.txt"
+      ],
+      "reranked_sources": [
+        "cash_flow_management.txt",
+        "cash_flow_management.txt",
+        "cash_flow_management.txt"
+      ]
+    },
+    {
+      "question": "What is cash flow forecasting?",
+      "expected": "cash_flow_management.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 113.88959991745651,
+      "reranking_ms": 7.64789991080761,
+      "baseline_sources": [
+        "cash_flow_management.txt",
+        "cash_flow_management.txt",
+        "cash_flow_management.txt"
+      ],
+      "reranked_sources": [
+        "cash_flow_management.txt",
+        "cash_flow_management.txt",
+        "cash_flow_management.txt"
+      ]
+    },
+    {
+      "question": "What is personal financial planning?",
+      "expected": "financial_planning.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 200.47550019808114,
+      "reranking_ms": 7.854599971324205,
+      "baseline_sources": [
+        "financial_planning.txt",
+        "financial_planning.txt",
+        "financial_planning.txt"
+      ],
+      "reranked_sources": [
+        "financial_planning.txt",
+        "financial_planning.txt",
+        "cash_flow_management.txt"
+      ]
+    },
+    {
+      "question": "How is net worth calculated?",
+      "expected": "financial_planning.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 114.95730001479387,
+      "reranking_ms": 10.471600107848644,
+      "baseline_sources": [
+        "financial_planning.txt",
+        "financial_planning.txt",
+        "financial_planning.txt"
+      ],
+      "reranked_sources": [
+        "financial_planning.txt",
+        "financial_planning.txt",
+        "financial_planning.txt"
+      ]
+    },
+    {
+      "question": "What are the main components of financial planning?",
+      "expected": "financial_planning.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 134.13640018552542,
+      "reranking_ms": 11.495700106024742,
+      "baseline_sources": [
+        "financial_planning.txt",
+        "financial_planning.txt",
+        "financial_planning.txt"
+      ],
+      "reranked_sources": [
+        "financial_planning.txt",
+        "financial_planning.txt",
+        "financial_planning.txt"
+      ]
+    },
+    {
+      "question": "What is financial fraud?",
+      "expected": "financial_fraud_awareness.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 229.15249993093312,
+      "reranking_ms": 7.140600122511387,
+      "baseline_sources": [
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt"
+      ],
+      "reranked_sources": [
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt"
+      ]
+    },
+    {
+      "question": "What is a false positive in fraud detection?",
+      "expected": "financial_fraud_awareness.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 128.4698999952525,
+      "reranking_ms": 8.480299962684512,
+      "baseline_sources": [
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt"
+      ],
+      "reranked_sources": [
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt",
+        "subscription_management.txt"
+      ]
+    },
+    {
+      "question": "Can an unusual bank transaction automatically be considered fraudulent?",
+      "expected": "financial_fraud_awareness.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 109.76540017873049,
+      "reranking_ms": 7.68649997189641,
+      "baseline_sources": [
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt"
+      ],
+      "reranked_sources": [
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt",
+        "expense_categorization.txt"
+      ]
+    },
+    {
+      "question": "What are recurring subscription payments?",
+      "expected": "subscription_management.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 102.96639986336231,
+      "reranking_ms": 9.865399915724993,
+      "baseline_sources": [
+        "subscription_management.txt",
+        "subscription_management.txt",
+        "subscription_management.txt"
+      ],
+      "reranked_sources": [
+        "subscription_management.txt",
+        "subscription_management.txt",
+        "subscription_management.txt"
+      ]
+    },
+    {
+      "question": "How can AI identify recurring subscriptions?",
+      "expected": "subscription_management.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 106.8399001378566,
+      "reranking_ms": 7.702999981120229,
+      "baseline_sources": [
+        "subscription_management.txt",
+        "subscription_management.txt",
+        "subscription_management.txt"
+      ],
+      "reranked_sources": [
+        "subscription_management.txt",
+        "subscription_management.txt",
+        "subscription_management.txt"
+      ]
+    },
+    {
+      "question": "How do I calculate annual subscription expenses?",
+      "expected": "subscription_management.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 119.1442001145333,
+      "reranking_ms": 10.351100005209446,
+      "baseline_sources": [
+        "subscription_management.txt",
+        "subscription_management.txt",
+        "subscription_management.txt"
+      ],
+      "reranked_sources": [
+        "subscription_management.txt",
+        "subscription_management.txt",
+        "budgeting_guide.txt"
+      ]
+    },
+    {
+      "question": "What is expense categorization?",
+      "expected": "expense_categorization.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 107.90090006776154,
+      "reranking_ms": 9.564700070768595,
+      "baseline_sources": [
+        "expense_categorization.txt",
+        "expense_categorization.txt",
+        "spending_analysis.txt"
+      ],
+      "reranked_sources": [
+        "expense_categorization.txt",
+        "expense_categorization.txt",
+        "spending_analysis.txt"
+      ]
+    },
+    {
+      "question": "How does AI categorize bank transactions?",
+      "expected": "expense_categorization.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 0.5,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 0,
+        "reciprocal_rank": 0.0,
+        "document_precision": 0.0,
+        "document_recall": 0.0
+      },
+      "retrieval_ms": 108.17750007845461,
+      "reranking_ms": 8.0033999402076,
+      "baseline_sources": [
+        "financial_fraud_awareness.txt",
+        "expense_categorization.txt",
+        "financial_fraud_awareness.txt"
+      ],
+      "reranked_sources": [
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt"
+      ]
+    },
+    {
+      "question": "How is category spending percentage calculated?",
+      "expected": "expense_categorization.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 124.39429992809892,
+      "reranking_ms": 8.708900073543191,
+      "baseline_sources": [
+        "expense_categorization.txt",
+        "expense_categorization.txt",
+        "spending_analysis.txt"
+      ],
+      "reranked_sources": [
+        "expense_categorization.txt",
+        "expense_categorization.txt",
+        "spending_analysis.txt"
+      ]
+    },
+    {
+      "question": "What is investment diversification?",
+      "expected": "investment_fundamentals.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 103.03440014831722,
+      "reranking_ms": 8.313600206747651,
+      "baseline_sources": [
+        "investment_fundamentals.txt",
+        "investment_fundamentals.txt",
+        "investment_fundamentals.txt"
+      ],
+      "reranked_sources": [
+        "investment_fundamentals.txt",
+        "investment_fundamentals.txt",
+        "investment_fundamentals.txt"
+      ]
+    },
+    {
+      "question": "How is compound interest calculated?",
+      "expected": "investment_fundamentals.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 123.25459998100996,
+      "reranking_ms": 9.50610009022057,
+      "baseline_sources": [
+        "investment_fundamentals.txt",
+        "investment_fundamentals.txt",
+        "debt_management.txt"
+      ],
+      "reranked_sources": [
+        "investment_fundamentals.txt",
+        "credit_score.txt",
+        "investment_fundamentals.txt"
+      ]
+    },
+    {
+      "question": "What is return on investment?",
+      "expected": "investment_fundamentals.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 211.1147998366505,
+      "reranking_ms": 8.146400097757578,
+      "baseline_sources": [
+        "investment_fundamentals.txt",
+        "investment_fundamentals.txt",
+        "investment_fundamentals.txt"
+      ],
+      "reranked_sources": [
+        "investment_fundamentals.txt",
+        "investment_fundamentals.txt",
+        "investment_fundamentals.txt"
+      ]
+    },
+    {
+      "question": "What is the difference between saving and investing?",
+      "expected": "investment_fundamentals.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.3333333333333333,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 0.5,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 110.95340014435351,
+      "reranking_ms": 9.827899979427457,
+      "baseline_sources": [
+        "investment_fundamentals.txt",
+        "savings_goals.txt",
+        "financial_planning.txt"
+      ],
+      "reranked_sources": [
+        "investment_fundamentals.txt",
+        "investment_fundamentals.txt",
+        "savings_goals.txt"
+      ]
+    },
+    {
+      "question": "What is the difference between positive and negative cash flow?",
+      "expected": "cash_flow_management.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 115.03360001370311,
+      "reranking_ms": 7.182300090789795,
+      "baseline_sources": [
+        "cash_flow_management.txt",
+        "cash_flow_management.txt",
+        "cash_flow_management.txt"
+      ],
+      "reranked_sources": [
+        "cash_flow_management.txt",
+        "cash_flow_management.txt",
+        "cash_flow_management.txt"
+      ]
+    },
+    {
+      "question": "What are the warning signs of financial fraud?",
+      "expected": "financial_fraud_awareness.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 112.86160000599921,
+      "reranking_ms": 8.881699992343783,
+      "baseline_sources": [
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt"
+      ],
+      "reranked_sources": [
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt",
+        "financial_fraud_awareness.txt"
+      ]
+    },
+    {
+      "question": "Why can automated expense categorization be incorrect?",
+      "expected": "expense_categorization.txt",
+      "baseline": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "reranked": {
+        "hit": 1,
+        "reciprocal_rank": 1.0,
+        "document_precision": 1.0,
+        "document_recall": 1.0
+      },
+      "retrieval_ms": 111.47879995405674,
+      "reranking_ms": 7.9061000142246485,
+      "baseline_sources": [
+        "expense_categorization.txt",
+        "expense_categorization.txt",
+        "expense_categorization.txt"
+      ],
+      "reranked_sources": [
+        "expense_categorization.txt",
+        "expense_categorization.txt",
+        "expense_categorization.txt"
+      ]
+    }
+  ],
+  "baseline": {
+    "hit_at_3": 1.0,
+    "mrr_at_3": 0.9875
+  },
+  "reranked": {
+    "hit_at_3": 0.975,
+    "mrr_at_3": 0.9458333333333332
+  },
+  "average_reranking_ms": 9.486917516915128
+}

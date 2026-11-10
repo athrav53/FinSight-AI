@@ -58,6 +58,13 @@ logger = logging.getLogger(__name__)
 
 OLLAMA_KEEP_ALIVE = "30m"
 
+# Allow all-user queries only in a trusted local demo.
+# Keep disabled for public deployment.
+ALLOW_ALL_USERS = os.getenv("AGENT_ALLOW_ALL_USERS", "0") == "1"
+
+
+
+
 # Reuse HTTP connections
 SESSION = requests.Session()
 
@@ -670,6 +677,16 @@ def run_agent(question, user_id=None):
     6. Check every amount in the answer against the database
     7. Return performance metrics
     """
+
+        # SECURITY: REQUIRE USER SCOPE
+
+    if user_id is None and not ALLOW_ALL_USERS:
+        return {
+            "status": "error",
+            "question": question,
+            "answer": "Please select a user before asking about financial transactions.",
+            "error_type": "UserScopeRequired",
+        }
 
     if not isinstance(question, str) or not question.strip():
         return {

@@ -1,3 +1,4 @@
+
 """
 FinSight AI - Database Agent Tools
 
@@ -6,10 +7,11 @@ financial information from PostgreSQL.
 
 Safety rules:
 - All queries are read-only SELECT statements.
-- All values are passed as SQL parameters (no string building).
+- All values are passed as SQL parameters.
 - Only allowlisted tools can run.
-- The user whose data is read (user_id) is set by the
-  application, never chosen by the language model.
+- Every query requires a valid user_id.
+- The user_id is supplied by the application,
+  never chosen by the language model.
 """
 
 import logging
@@ -75,32 +77,36 @@ def validate_limit(limit):
 
 
 def validate_user_id(user_id):
-    """None means all users; otherwise a short safe identifier."""
+    """
+    Require a valid user ID for every financial query.
+    """
 
     if user_id is None:
-        return
+        raise ValueError("User ID is required.")
 
-    if not isinstance(user_id, str) or not USER_ID_PATTERN.match(user_id):
+    if (
+        not isinstance(user_id, str)
+        or not USER_ID_PATTERN.fullmatch(user_id)
+    ):
         raise ValueError("Invalid user ID.")
 
 
 def user_filter(user_id):
     """
-    SQL fragment + parameters restricting rows to one user.
+    Return a parameterized SQL filter for one user.
 
-    Returns an empty fragment when user_id is None (all users).
+    Queries without a valid user_id are rejected.
     """
 
     validate_user_id(user_id)
-
-    if user_id is None:
-        return sql.SQL(""), []
 
     return sql.SQL(" AND user_id = %s"), [user_id]
 
 
 def run_query(query, params):
-    """Run one read-only query and return all rows as dictionaries."""
+    """
+    Run one read-only query and return dictionaries.
+    """
 
     with get_connection() as conn:
         with conn.cursor(row_factory=dict_row) as cursor:
@@ -114,7 +120,7 @@ def run_query(query, params):
 
 def get_total_expenses(user_id=None):
     """
-    Calculate total debit transactions.
+    Calculate total debit transactions for one user.
     """
 
     scope, params = user_filter(user_id)
@@ -143,7 +149,7 @@ def get_total_expenses(user_id=None):
 
 def get_top_expenses(limit=5, user_id=None):
     """
-    Return the largest debit transactions.
+    Return the largest debit transactions for one user.
     """
 
     validate_limit(limit)
@@ -179,21 +185,26 @@ def get_top_expenses(limit=5, user_id=None):
 
 def get_category_spending(user_id=None):
     """
-    Calculate spending by category.
+    Calculate spending by category for one user.
     """
 
     scope, params = user_filter(user_id)
 
     query = sql.SQL("""
         SELECT
-            COALESCE(NULLIF(TRIM(category), ''), 'Uncategorized')
-                AS category,
+            COALESCE(
+                NULLIF(TRIM(category), ''),
+                'Uncategorized'
+            ) AS category,
             COUNT(*) AS transaction_count,
             SUM(amount) AS total_spent
         FROM bank_transactions
         WHERE LOWER(transaction_type) = 'debit'{scope}
         GROUP BY
-            COALESCE(NULLIF(TRIM(category), ''), 'Uncategorized')
+            COALESCE(
+                NULLIF(TRIM(category), ''),
+                'Uncategorized'
+            )
         ORDER BY total_spent DESC;
     """).format(scope=scope)
 
@@ -212,7 +223,7 @@ def get_category_spending(user_id=None):
 
 def get_monthly_spending(user_id=None):
     """
-    Calculate total debit spending for each month.
+    Calculate monthly debit spending for one user.
     """
 
     scope, params = user_filter(user_id)
@@ -289,7 +300,7 @@ def get_top_merchants(limit=5, user_id=None):
 def search_transactions(search_term, limit=10, user_id=None):
     """
     Search transactions by merchant, category,
-    or description.
+    or description for one user.
     """
 
     if not isinstance(search_term, str):
@@ -307,8 +318,7 @@ def search_transactions(search_term, limit=10, user_id=None):
 
     scope, scope_params = user_filter(user_id)
 
-    # Escape SQL LIKE wildcard characters so that
-    # user input is treated as literal search text.
+    # Escape SQL LIKE wildcard characters.
     escaped_term = (
         search_term
         .replace("\\", "\\\\")
@@ -371,13 +381,10 @@ AVAILABLE_TOOLS = {
 
 def execute_tool(tool_name, arguments=None, user_id=None):
     """
-    Execute only approved tools.
+    Execute only approved financial tools.
 
-    Prevents the agent from executing arbitrary
-    Python functions or SQL queries.
-
-    user_id comes from the application (the selected user),
-    never from the language model's arguments.
+    The user_id is supplied by the application,
+    never by the language model.
     """
 
     if tool_name not in AVAILABLE_TOOLS:
@@ -396,16 +403,21 @@ def execute_tool(tool_name, arguments=None, user_id=None):
         }
 
     if "user_id" in arguments:
-        # The model must never choose whose data to read.
         return {
             "status": "error",
             "message": "The user cannot be chosen in tool arguments."
         }
 
     try:
+        # Validate before executing any financial tool.
+        validate_user_id(user_id)
+
         tool_function = AVAILABLE_TOOLS[tool_name]
 
-        result = tool_function(**arguments, user_id=user_id)
+        result = tool_function(
+            **arguments,
+            user_id=user_id
+        )
 
         return {
             "status": "success",
@@ -413,15 +425,12 @@ def execute_tool(tool_name, arguments=None, user_id=None):
         }
 
     except (ValueError, TypeError) as error:
-        # Validation problems are safe to show to the user.
         return {
             "status": "error",
             "message": str(error)
         }
 
     except Exception:
-        # Database errors can contain connection or SQL details:
-        # log them, show a generic message.
         logger.exception("Tool %s failed", tool_name)
 
         return {
@@ -449,16 +458,20 @@ if __name__ == "__main__":
         ("get_category_spending", {}),
         ("get_monthly_spending", {}),
         ("get_top_merchants", {"limit": 5}),
-        ("search_transactions", {
-            "search_term": "Amazon",
-            "limit": 10
-        }),
+        (
+            "search_transactions",
+            {
+                "search_term": "Amazon",
+                "limit": 10
+            }
+        ),
     ]
 
     for tool_name, arguments in test_cases:
 
         print(f"\n===== {tool_name.upper()} =====")
 
+        # Without a user ID, these tests should be rejected.
         result = execute_tool(
             tool_name,
             arguments
