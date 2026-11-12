@@ -1,12 +1,12 @@
-
 """
 FinSight AI - FastAPI Application
 
 Endpoints:
-- GET  /health   Service status
-- POST /ask      RAG answer with source documents
-- POST /agent    Financial agent (API key required, user-scoped)
-- GET  /metrics  LLM observability summary (API key required)
+- GET  /health      Service status
+- POST /ask         RAG answer with source documents
+- POST /agent       Financial agent (API key required, user-scoped)
+- POST /categorize  Transaction category (rules + LLM, API key required)
+- GET  /metrics     LLM observability summary (API key required)
 """
 
 import os
@@ -15,6 +15,7 @@ import logging
 
 from contextlib import asynccontextmanager
 from pathlib import Path
+from typing import Literal, Optional
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, Depends, Header, HTTPException, Query
@@ -52,6 +53,7 @@ from rag.rag_pipeline import generate_rag_answer
 from agent.financial_agent import run_agent
 from api.request_middleware import request_tracking_middleware
 from rag.observability import summarize_llm_metrics
+from ai.categorizer import categorize
 
 
 # ============================================================
@@ -299,7 +301,8 @@ def llm_metrics(
     """
     LLM calls in the last `hours` hours: count, failure rate,
     average and p95 latency, tokens and estimated cost,
-    overall and per feature (rag, agent). Requires the API key.
+    overall and per feature (rag, agent, categorizer).
+    Requires the API key.
     """
 
     try:
@@ -311,4 +314,47 @@ def llm_metrics(
         raise HTTPException(
             status_code=503,
             detail="Monitoring data is unavailable."
+        )
+
+
+# ============================================================
+# 12. TRANSACTION CATEGORISATION
+# ============================================================
+
+class CategorizeRequest(BaseModel):
+    description: str = Field(..., min_length=1, max_length=200)
+    transaction_type: Optional[Literal["debit", "credit"]] = None
+    mode: Literal["rules", "llm", "hybrid"] = "hybrid"
+
+
+@app.post("/categorize")
+def categorize_transaction(
+    request: CategorizeRequest,
+    user_id: str = Depends(get_authenticated_user)
+):
+    """
+    Categorise one bank narration.
+
+    hybrid (default): rules first, LLM only when no rule matches.
+    The category is always one of config/categories.json.
+    """
+
+    try:
+        result = categorize(
+            request.description,
+            request.transaction_type,
+            mode=request.mode
+        )
+
+        return result.model_dump()
+
+    except ValueError as error:
+        raise HTTPException(status_code=422, detail=str(error))
+
+    except Exception:
+        logger.exception("Transaction categorisation failed")
+
+        raise HTTPException(
+            status_code=500,
+            detail="Categorisation failed."
         )
