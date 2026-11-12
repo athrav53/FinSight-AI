@@ -1,5 +1,4 @@
 
-
 """
 FinSight AI - FastAPI Application
 
@@ -28,13 +27,12 @@ from pydantic import BaseModel, Field
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
+# All environment-specific settings (database, OLLAMA_BASE_URL,
+# API key) come from .env / environment variables.
 load_dotenv(
     dotenv_path=PROJECT_ROOT / ".env",
     override=True
 )
-
-# Temporary local Ollama configuration
-os.environ["OLLAMA_BASE_URL"] = "http://127.0.0.1:11435"
 
 RAG_COLLECTION_ID = os.getenv(
     "FINSIGHT_RAG_COLLECTION_ID",
