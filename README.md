@@ -1,300 +1,255 @@
 # FinSight AI
-### Local-LLM Financial Analytics, RAG Chatbot and Tool-Calling Agent
 
-FinSight AI is a Python application that analyses bank transactions stored in
-PostgreSQL and adds three AI features on top, all running locally through
-Ollama with no paid APIs:
+**A local-LLM financial assistant: RAG over finance documents, a tool-calling agent over bank transactions, LLM transaction categorisation, evaluation and observability.**
 
-1. **Analytics dashboard** – KPIs, charts, transaction explorer and AI spending insights
-2. **Document chatbot (RAG)** – answers personal-finance questions from a knowledge base, with citations
-3. **AI agent** – answers questions about the transactions by calling safe, read-only database tools
+![CI](https://github.com/athrav53/FinSight-AI/actions/workflows/ci.yml/badge.svg)
 
-Every AI output that contains money amounts is checked against the database or the
-source documents before it is shown.
+FinSight AI turns bank statements into a queryable financial dataset and puts three LLM features on top of it, all running locally with Ollama (no paid APIs):
 
-> **Data notice:** The project uses **synthetic** transaction data made by its
-> own generators. Do not upload real bank statements to a public deployment.
+| Feature | What it does | Endpoint |
+|---|---|---|
+| **Document Q&A (RAG)** | Answers personal-finance questions from a knowledge base, with source citations, and refuses when the documents don't support an answer | `POST /ask` |
+| **Financial agent** | Answers questions about a user's transactions by choosing one of six read-only SQL tools | `POST /agent` |
+| **Transaction categorisation** | Turns raw bank narrations (`UPI/DR/.../SWIGGY/...`) into a category, using rules first and the LLM only when rules can't decide | `POST /categorize` |
 
----
+Every LLM call is validated (structured output, citation and amount checks), logged without prompts or answers, and summarised at `GET /metrics`.
 
-## 1. Features
-
-### Analytics Dashboard (`app.py`)
-- KPI cards (income, expenses, net cash flow, savings rate) with change vs the previous period
-- Sidebar filters: user, date range, category, transaction type
-- Weekly spending trend, category donut, top merchants, income vs expenses
-- Transaction explorer with search, sorting, pagination and CSV export
-- Statement upload (CSV / Excel) with bank-format detection (HDFC, SBI, ICICI),
-  cleaning, validation, duplicate-file check and dry-run preview before loading
-- AI spending report from Gemma 3, with a **rule-based fallback** when Ollama is
-  offline or the AI output fails amount validation
-- Light and dark theme support
-
-### Document Chatbot – RAG (`rag/`)
-- Loads `.txt` documents from `rag/knowledge_base/`
-- Word-based chunking (120 words, 25 overlap)
-- Embeddings with `nomic-embed-text` through Ollama
-- In-memory NumPy vector store with cosine similarity
-- Top-3 retrieval with a 0.25 minimum-similarity threshold
-- Structured JSON answers validated with **Pydantic**
-- Citation validation (the answer may only cite retrieved sources)
-- Money-amount validation against the retrieved text
-- Says "not enough information" instead of guessing when the context is missing
-
-### AI Agent with Tool Calling (`agent/`)
-- Gemma 3 picks one tool and its arguments as **constrained JSON**
-  (Ollama `format: "json"`), because Gemma 3 has no native function calling in Ollama
-- 6 allowlisted, read-only PostgreSQL tools:
-  `get_total_expenses`, `get_top_expenses`, `get_category_spending`,
-  `get_monthly_spending`, `get_top_merchants`, `search_transactions`
-- Safety layers:
-  - Only allowlisted tools; unknown tools and extra arguments are rejected
-  - Arguments validated (limit 1–20, search text length, wildcard escaping)
-  - Parameterised SQL only (`psycopg.sql`), no string-built queries
-  - The **user scope is set by the app**, never by the model
-  - Database error details are logged, not shown to the user
-- **Answer validation:** every amount in the model's answer must exist in the
-  tool result; otherwise the answer is rebuilt from the database
-- Still answers from the database if the model goes down after the query
-- "View agent execution" panel shows the tool, scope, timings and raw result
-
-### REST API (`api/main.py`)
-- FastAPI with `GET /health` and `POST /ask` (RAG question answering)
-- Pydantic request and response models
+> **Data:** all transactions are synthetic. Do not load real bank statements into a public deployment.
 
 ---
 
-## 2. Technology Stack
+## Architecture
 
-| Component | Technology |
-|-----------|------------|
+```mermaid
+flowchart LR
+    U[Client / Streamlit UI] --> API[FastAPI<br/>API key + request IDs]
+
+    API --> ASK["/ask"]
+    API --> AG["/agent"]
+    API --> CAT["/categorize"]
+    API --> MET["/metrics"]
+
+    subgraph RAG[RAG pipeline]
+        ASK --> EMB[Embed question<br/>nomic-embed-text]
+        EMB --> VS[(PostgreSQL + pgvector<br/>HNSW, cosine)]
+        VS --> TOPK[Top-3 chunks<br/>min similarity 0.25]
+        TOPK --> GEN[Gemma 3 4B<br/>grounded prompt]
+        GEN --> VAL1[Citation + amount<br/>validation]
+    end
+
+    subgraph AGENT[Financial agent]
+        AG --> SEL[Gemma 3 picks a tool<br/>JSON + few-shot]
+        SEL --> CHK[Allowlist + argument<br/>validation]
+        CHK --> SQL[(Read-only SQL tools<br/>scoped to user)]
+        SQL --> ANS[Gemma 3 writes answer]
+        ANS --> VAL2[Every amount checked<br/>against DB result]
+    end
+
+    subgraph CATEG[Categorisation]
+        CAT --> RULES[Merchant + keyword rules]
+        RULES -- no match --> LLM[Gemma 3<br/>JSON schema enum]
+        LLM --> VAL3[Pydantic + debit/credit check]
+    end
+
+    VAL1 & VAL2 & VAL3 -.-> OBS[(logs/llm_metrics.jsonl)]
+    OBS --> MET
+```
+
+---
+
+## Tech stack
+
+| Area | Technology |
+|---|---|
 | Language | Python 3.11 |
-| UI | Streamlit |
-| API | FastAPI, Uvicorn |
-| Database | PostgreSQL (psycopg 3) |
-| Data processing | Pandas, NumPy |
-| Charts | Plotly |
-| Local LLM runtime | Ollama |
-| Language model | `gemma3:4b` |
-| Embedding model | `nomic-embed-text` |
-| Vector search | In-memory NumPy cosine similarity |
-| Output validation | Pydantic, custom amount and citation checks |
-| Testing | pytest, unittest.mock |
-| Configuration | python-dotenv |
+| API | FastAPI, Pydantic |
+| Database | PostgreSQL + **pgvector** (HNSW index) |
+| LLM runtime | Ollama: `gemma3:4b` (generation), `nomic-embed-text` (embeddings, 768-d) |
+| UI | Streamlit (dashboard, document chatbot, agent, evaluation pages) |
+| Data | pandas, pdfplumber (PDF statements), psycopg 3 |
+| Testing / CI | pytest, unittest.mock, GitHub Actions |
 
 ---
 
-## 3. Architecture
+## Key design decisions
 
-```text
-                         Streamlit App (app.py)
-                                  |
-      +-------------+-------------+-------------+--------------+
-      |             |                           |              |
-  Dashboard     Document Chatbot            AI Agent     RAG Evaluation
-      |             |                           |          Dashboard
- PostgreSQL     Knowledge base (.txt)     Question
-      |             |                           |
- Pandas KPIs    Chunk -> Embed (Ollama)   Gemma 3 picks tool (JSON)
- + charts           |                           |
-      |         NumPy vector store        Validate tool + arguments
- Gemma 3            |                           |
- insights       Top-3 retrieval           Read-only SQL tool
-      |             |                     (user scope from app)
- Amount check   Gemma 3 answer (JSON)           |
-      |             |                     Gemma 3 writes answer
- Rule-based     Pydantic + citation             |
- fallback       + amount checks           Amount check vs DB result
-                    |                           |
-                Answer + sources          Answer (or DB template)
+**RAG**
+- 120-word chunks with 25-word overlap; embeddings stored in pgvector with an HNSW cosine index.
+- Top-3 retrieval with a 0.25 similarity threshold. Below the threshold the system answers *"I couldn't find enough information…"* instead of guessing.
+- The prompt treats retrieved text as data, not instructions. Answers must cite `[Source N]`; citations and currency amounts are validated against the retrieved chunks.
+- Optional Pydantic structured output with a plain-text fallback.
 
-             FastAPI (api/main.py): /health, /ask -> RAG pipeline
-```
+**Agent and tool calling**
+- Gemma 3 has no native function calling in Ollama, so the model returns `{"tool": ..., "arguments": ...}` in JSON mode, guided by 9 few-shot examples (including refusals).
+- Only 6 allowlisted, read-only tools; unknown tools and extra arguments are rejected; limits are validated.
+- Parameterised SQL only. The **user scope comes from the authenticated request, never from the model**.
+- Every amount in the final answer must exist in the database result; otherwise the answer is rebuilt from a template. If the model fails after the query, the user still gets the database answer.
 
----
+**Categorisation**
+- Rules (merchant list + Indian bank keywords, whole-word, longest match wins, debit/credit aware) handle known merchants instantly.
+- The LLM is called only for narrations no rule matches. Its output is constrained by a JSON schema whose `category` field is an enum of the allowed categories, then validated by Pydantic. An income category on a debit is rejected. Any failure falls back to `Others`.
 
-## 4. Project Structure
+**Security**
+- API key on `/agent`, `/categorize` and `/metrics` (constant-time comparison).
+- All-users queries are disabled unless `AGENT_ALLOW_ALL_USERS=1` is set for a trusted local demo.
+- Database and model errors are logged; users get generic messages.
+- Secrets only in `.env` (gitignored); all environment-specific settings come from environment variables.
 
-```text
-Finsight_AI/
-|-- app.py                     # Streamlit app (dashboard + navigation)
-|-- requirements.txt
-|-- .env.example
-|-- .streamlit/config.toml     # Theme settings
-|
-|-- agent/
-|   |-- financial_agent.py     # Tool selection, validation, answer check
-|   |-- tools.py               # 6 read-only PostgreSQL tools
-|   |-- agent_ui.py            # Agent chat page
-|
-|-- rag/
-|   |-- document_loader.py     # Loading and chunking
-|   |-- embeddings.py          # Ollama embeddings
-|   |-- vector_store.py        # NumPy cosine-similarity search
-|   |-- rag_pipeline.py        # Retrieval, prompt, Pydantic, validation
-|   |-- chat_ui.py             # Chatbot page
-|   |-- knowledge_base/        # Source documents
-|
-|-- ai/llm_insights.py         # AI spending report + fallback
-|-- analytics/                 # KPI and SQL query helpers
-|-- api/main.py                # FastAPI endpoints
-|-- db/                        # Connection and transaction loading
-|-- etl/                       # Bank detection, cleaning, mapping, validation, loading
-|-- generators/                # Synthetic users, accounts and transactions
-|-- modules/                   # Statement upload page, config loader
-|-- config/                    # Categories, merchants, banks, personas (JSON)
-|-- sql/schema.sql             # Database schema
-|-- evaluation/                # Evaluators, test sets, results, dashboard
-|-- tests/                     # pytest unit tests + agent evaluation scripts
-|-- docs/PROJECT_ARCHITECTURE.md
-```
+**Observability**
+- Every LLM call (RAG, agent, categoriser) writes one JSON line: feature, request ID, model, latency, prompt/completion tokens, status, error type. Prompts and answers are never logged (explicit allowlist).
+- The API middleware adds an `X-Request-ID` to every response and links it to the LLM log lines for that request.
+- `GET /metrics` reports call count, failure rate, average and **p95** latency, tokens and estimated cost, overall and per feature.
 
 ---
 
-## 5. Installation (Windows PowerShell)
+## Results
 
-### Prerequisites
-- Python 3.11
-- PostgreSQL
-- Ollama
-- Git
+All results are from local runs on CPU with `gemma3:4b`. Test sets are synthetic and author-written, so they show that the system works and that changes can be measured, not that it generalises.
 
-### Step 1: Clone
+### RAG retrieval: 40 questions, 12 documents, pgvector
+
+| Configuration | Hit@3 | MRR@3 | Document precision | Decision |
+|---|---|---|---|---|
+| **Baseline: top-3** | **100%** | **0.9875** | 0.758 | ✅ Kept |
+| Top-5 | 100% | 0.9875 | 0.485 | ❌ Same recall, lower precision, more context |
+| Top-3 + TF-IDF reranker | 97.5% | 0.9458 | — | ❌ Worse, +9.5 ms per query |
+
+The reranker experiment is a deliberate negative result: on a small knowledge base, vector retrieval was already near-perfect and lexical reranking pushed some correct documents down. A cross-encoder reranker would be the next experiment at larger scale.
+
+### Transaction categorisation: 52 labelled bank narrations
+
+| Mode | Accuracy | LLM calls | Avg time / transaction |
+|---|---|---|---|
+| Rules only | 75.0% (39/52) | 0 | ~1 ms |
+| **Hybrid (rules → LLM)** | **98.1% (51/52)** | 13 | ~3.3 s |
+
+- Every rule match was correct; rules missed unknown merchants (`HALDIRAM SNACKS`, `NAMMA YATRI AUTO`, `OYO ROOMS`…).
+- The LLM fixed 12 of the 13 misses, with no invalid outputs. Each LLM call took ~13 s on CPU, so calling it only for 25% of transactions matters.
+- The one error: `ACH D- BAJAJ FINANCE LTD` → *Insurance* instead of *EMI*. Next step would be an "ACH debit + finance → EMI" hint, then re-running the evaluation.
+
+### Agent (re-run 12 Nov 2026)
+
+| Evaluation | Result | Avg latency (CPU) |
+|---|---|---|
+| Tool selection | 18/18 | ~18 s |
+| Unseen phrasings (tool + arguments) | 30/30 | ~19 s |
+| Unsafe requests refused (delete, transfer, SQL, secrets, prompt injection) | 24/24 | ~18 s |
+| Final answers match the database | 6/6 | – |
+
+The first request takes ~60 s while Ollama loads the model; `keep_alive` keeps it loaded for later requests.
+
+### Automated tests
+
+**131 unit and security tests** run in GitHub Actions on every push, with no database or model required (Ollama and PostgreSQL are mocked). Tests that need a real database or local files are marked `integration` and run locally.
+
+---
+
+## API
+
+| Method | Path | Auth | Description |
+|---|---|---|---|
+| GET | `/health` | – | Service status and knowledge-base readiness |
+| POST | `/ask` | – | `{"question": "What is an emergency fund?"}` → answer, sources, status |
+| POST | `/agent` | `X-API-Key` | `{"question": "How much did I spend in total?"}` → answer, tool, DB result, timings |
+| POST | `/categorize` | `X-API-Key` | `{"description": "UPI/DR/ HALDIRAM SNACKS", "transaction_type": "debit"}` → category, source |
+| GET | `/metrics?hours=24` | `X-API-Key` | Failure rate, avg / p95 latency, tokens, cost per feature |
+
+Interactive docs: `http://127.0.0.1:8000/docs`
+
+---
+
+## Setup (Windows PowerShell)
+
+**Prerequisites:** Python 3.11, PostgreSQL with the `pgvector` extension, Ollama.
+
 ```powershell
-git clone https://github.com/YOUR-USERNAME/finsight-ai.git
-cd finsight-ai
+git clone https://github.com/athrav53/FinSight-AI.git
+cd FinSight-AI
+
+py -3.11 -m venv .venv_clean
+.venv_clean\Scripts\Activate.ps1
+python -m pip install -r requirements.txt pytest httpx
+
+Copy-Item .env.example .env      # then fill in DB_PASSWORD and add FINSIGHT_API_KEY
 ```
 
-### Step 2: Virtual environment and packages
-```powershell
-py -3.11 -m venv .venv311
-.venv311\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-```
-
-### Step 3: Environment variables
-```powershell
-Copy-Item .env.example .env
-```
-Edit `.env`:
+Add to `.env`:
 ```dotenv
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=finsight_ai
-DB_USER=postgres
-DB_PASSWORD=your_database_password
-
+FINSIGHT_API_KEY=choose-a-long-random-key
+FINSIGHT_DEMO_USER_ID=USR00001
 OLLAMA_BASE_URL=http://127.0.0.1:11434
-OLLAMA_URL=http://127.0.0.1:11434/api/generate
-OLLAMA_MODEL=gemma3:4b
-OLLAMA_EMBEDDING_MODEL=nomic-embed-text
-OLLAMA_TIMEOUT=180
 ```
-Never commit `.env`.
 
-### Step 4: Ollama models
+Models and database:
 ```powershell
 ollama pull gemma3:4b
 ollama pull nomic-embed-text
-ollama list
-```
 
-### Step 5: Database
-```powershell
 psql -U postgres -c "CREATE DATABASE finsight_ai;"
 psql -U postgres -d finsight_ai -f sql/schema.sql
 ```
-Then load synthetic data by uploading a CSV from `data/` in the app's **Upload** tab.
 
-### Step 6: Run
+Run:
 ```powershell
-python -m streamlit run app.py          # Web app
-uvicorn api.main:app --reload           # API (docs at http://127.0.0.1:8000/docs)
+python -m streamlit run app.py          # UI: dashboard, document chatbot, agent, evaluation
+uvicorn api.main:app --reload           # API: http://127.0.0.1:8000/docs
 ```
 
 ---
 
-## 6. Testing and Evaluation
+## Running tests and evaluations
 
-### Unit tests (no Ollama or database needed – mocked)
 ```powershell
-python -m pytest
-```
-**Result: 39 passed.** They cover tool validation, rejection of unknown and unsafe
-tools, SQL user filtering, invented-amount replacement, friendly errors when
-Ollama is offline, and RAG pipeline validation.
+python -m pytest -m "not integration" -q                    # unit + security tests (no DB / Ollama)
+python -m pytest -q                                         # everything, with PostgreSQL running
 
-### Recorded evaluation results (local run, `gemma3:4b`, October 2026)
-
-| Evaluation | Questions | Result |
-|------------|-----------|--------|
-| Agent tool selection | 18 | 18/18 (100%) |
-| Agent on unseen phrasings (tool + arguments) | 30 | 30/30 (100%), 13.7 s avg |
-| Agent safety (unsafe requests rejected) | 24 | 24/24 (100%) |
-| Agent financial answers match the database | 6 | 6/6 (100%), 27–35 s avg |
-| RAG (25-question test set) | 25 | 25/25 executed |
-
-**RAG metrics (25 questions)**
-
-| Metric | Result |
-|--------|--------|
-| Retrieval Hit@1 / Hit@3 / MRR | 1.00 / 1.00 / 1.00 |
-| Citation validity | 100% |
-| Abstention on unsupported questions | 5/5 |
-| Hallucination-trap questions passed | 5/5 |
-| Grounding (LLM judge, 15 eligible questions) | 1.00, 0 hallucination flags |
-| Average response time | 18.7 s (CPU, local) |
-
-Run them yourself:
-```powershell
-python -m evaluation.rag_evaluator
+python -m evaluation.categorization_evaluator --modes rules hybrid
+python -m rag.evaluate_pgvector                             # top-3 vs top-5 retrieval
+python -m rag.evaluate_pgvector_reranker                    # baseline vs reranker
 python -m tests.evaluate_agent
-python -m tests.evaluate_agent_unseen
 python -m tests.evaluate_agent_safety
-python -m tests.evaluate_financial_answers
+python -m tests.evaluate_agent_unseen
+python -m rag.observability                                 # LLM metrics summary
 ```
 
-### Honest reading of these results
-- The RAG knowledge base has **only 3 documents**, so perfect retrieval is
-  expected and does not prove it would scale.
-- Test sets are small and written by the author.
-- Grounding scores come from an LLM judge using the same model family; this is an
-  estimate, not proof.
-- Results can change with other models, hardware or documents.
+---
+
+## Project structure
+
+```text
+agent/        financial_agent.py (tool selection, validation, answer check), tools.py (6 SQL tools)
+ai/           categorizer.py (rules + LLM categorisation), llm_insights.py
+api/          main.py (FastAPI), request_middleware.py (request IDs, timing)
+rag/          pipeline, pgvector store, embeddings, reranker, observability, evaluations
+ingestion/    PDF statement parsing and balance reconciliation
+etl/          bank detection, cleaning, column mapping, validation, loading
+evaluation/   test sets and evaluators (RAG, agent, categorisation)
+tests/        pytest suite (unit, security, integration)
+sql/          database schema
+config/       categories, merchants, banks
+app.py        Streamlit UI
+```
 
 ---
 
-## 7. Known Limitations
-- Embeddings are kept in memory and rebuilt at startup (no vector database).
-- The knowledge base is small (3 documents, `.txt` only).
-- Responses take 15–35 s on CPU because the models run locally.
-- The agent answers one tool call per question; it cannot chain several tools.
-- No login: user scope is selected in the app, which is fine for a demo but not for real users.
-- Runs locally only; it is not deployed to a server.
-- Demo data is synthetic; a few generated merchants are "Unknown".
+## Limitations
 
-## 8. Possible Next Steps
-- Persistent vector storage (pgvector or FAISS) and a larger knowledge base
-- Multi-step tool calling
-- Authentication with per-user data access
-- Docker packaging and cloud deployment
-- Monitoring of latency and failure rates
+- **Small, synthetic evaluation sets** written by the author; real statements and a held-out test set would give more realistic numbers.
+- **CPU inference:** agent answers take ~10–40 s and LLM categorisation ~13 s per call. A hosted or GPU model would be needed for production latency.
+- **One tool call per question:** the agent does not chain tools or keep conversation memory.
+- **Authentication is a single API key** mapped to a demo user; production would need per-user auth.
+- **Not containerised or deployed yet;** it runs locally.
+- **Real bank PDFs** have only been tested with synthetic statements.
 
----
+## Next steps
 
-## 9. What This Project Demonstrates
-- Python application design across ETL, analytics, AI and API layers
-- SQL and PostgreSQL with parameterised queries
-- LLM integration with a local model (Ollama)
-- Retrieval-Augmented Generation with citations
-- Tool calling for a model without native function support
-- Guardrails: allowlists, argument validation, output validation, fallbacks
-- Evaluation design (retrieval metrics, safety tests, answer accuracy)
-- Automated testing with mocks
-- Streamlit and FastAPI development
+- Cross-encoder reranker and a larger knowledge base, re-evaluated with the same metrics
+- Held-out evaluation on real (anonymised) statements; RAGAS-style answer metrics
+- Hosted LLM option for low latency; Docker image and CI build
+- Multi-step agent (e.g. LangGraph) only if questions need several tools; a single tool call doesn't need a framework
 
 ---
 
-## 10. Disclaimer
-FinSight AI is an educational portfolio project. Its outputs are not financial,
-tax, investment or legal advice. Use synthetic or properly authorised data only.
+## Disclaimer
+
+FinSight AI is an educational portfolio project. It is not financial, tax or investment advice.
