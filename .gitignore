@@ -46,3 +46,4 @@ test_buttons.py
 test_loader.py
 # PostgreSQL pgvector extension source and build files
 /pgvector/
+.venv*/
