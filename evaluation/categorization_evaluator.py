@@ -38,17 +38,23 @@ def load_cases(path=CASES_FILE):
     return data["cases"]
 
 
-def evaluate_mode(cases, mode, categorize_fn=categorize):
+def evaluate_mode(cases, mode, categorize_fn=categorize, show_progress=False):
     """Run one mode over all cases and return its metrics."""
 
     rows = []
 
-    for case in cases:
+    if show_progress:
+        print(f"\n--- Running mode: {mode} ({len(cases)} cases) ---", flush=True)
+
+    for number, case in enumerate(cases, start=1):
         start = time.perf_counter()
 
         result = categorize_fn(
             case["description"], case["transaction_type"], mode=mode
         )
+
+        latency_ms = round((time.perf_counter() - start) * 1000, 2)
+        correct = result.category == case["expected_category"]
 
         rows.append({
             "id": case["id"],
@@ -57,9 +63,17 @@ def evaluate_mode(cases, mode, categorize_fn=categorize):
             "predicted": result.category,
             "source": result.source,
             "error": result.error,
-            "correct": result.category == case["expected_category"],
-            "latency_ms": round((time.perf_counter() - start) * 1000, 2),
+            "correct": correct,
+            "latency_ms": latency_ms,
         })
+
+        if show_progress:
+            mark = "OK " if correct else "BAD"
+            print(
+                f"[{number:>2}/{len(cases)}] {mark} {case['description'][:38]:<38} "
+                f"-> {result.category:<15} ({result.source}, {latency_ms / 1000:.1f}s)",
+                flush=True,
+            )
 
     return summarise(mode, rows)
 
@@ -116,7 +130,7 @@ def main():
     args = parser.parse_args()
 
     cases = load_cases()
-    results = [evaluate_mode(cases, mode) for mode in args.modes]
+    results = [evaluate_mode(cases, mode, show_progress=True) for mode in args.modes]
 
     print_comparison(results)
     print(f"\nSaved: {save_results(results)}")
